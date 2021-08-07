@@ -1,0 +1,112 @@
+.top {
+  color: #333;
+  font-size: 24px;
+  text-align: center;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  z-index: 100;
+  background: -webkit-linear-gradient(top,#0066E6,#0075F4);
+  // &.iphone{padding-top: 88px;}
+  .scrollbar {
+    width: 25%;
+    height: 12px;
+    transition: transform 0.3s ease-in-out;
+    z-index: -1;
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+  }
+  .scrollbar::after {
+    width: 78px;
+    height: 18px;
+    background: url(https://images3.c-ctrip.com/ztrip/train_xie/2021-07/home_icon_triangle.png)
+      no-repeat;
+    background-size: 78px 20px;
+    position: absolute;
+    content: "";
+    left: 50%;
+    bottom: 0;
+    margin-left: -30px;
+  }
+}
+.index-tab {
+  margin: 0 10px;
+  position: relative;
+  display: flex;
+  line-height: 36px;
+  height: 170px;
+  padding: 0 15px;
+  .index_tab_item {
+    height: 168px;
+    text-align: center;
+    margin-top: 4px;
+    z-index: 10;
+    position: relative;
+    font-size: 30px;
+    color: rgba(255, 255, 255, 0.8);
+    flex: 1;
+    &.current {
+      color: #fff;
+      font-weight: 600;
+    }
+    &::before {
+      width: 98px;
+      height: 90px;
+      background: url(https://pic.c-ctrip.com/train/zt/wechat/index-tab_v4.png)
+        no-repeat;
+      background-size: 400px 400px;
+      content: "";
+      display: block;
+      margin: 6px auto 0;
+    }
+    &.train {
+      &::before {
+        background-position: 0 -200px;
+      }
+      &.current::before {
+        background-position: 0 -300px;
+      }
+    }
+    &.flight {
+      &::before {
+        background-position: -100px -200px;
+      }
+      &.current::before {
+        background-position: -100px -300px;
+      }
+    }
+    &.bus {
+      &::before {
+        background-position: -300px -200px;
+      }
+      &.current::before {
+        background-position: -300px -300px;
+      }
+    }
+    &.hotel {
+      &::before {
+        background-position: -200px -200px;
+      }
+      &.current::before {
+        background-position: -200px -300px;
+      }
+    }
+    &.current ~ .scrollbar {
+      z-index: 2;
+    }
+    &:nth-of-type(1).current ~ .scrollbar {
+      transform: translate3d(0, 0, 0);
+    }
+    &:nth-of-type(2).current ~ .scrollbar {
+      transform: translate3d(100%, 0, 0);
+    }
+    &:nth-of-type(3).current ~ .scrollbar {
+      transform: translate3d(200%, 0, 0);
+    }
+    &:nth-of-type(4).current ~ .scrollbar {
+      transform: translate3d(300%, 0, 0);
+    }
+  }
+}

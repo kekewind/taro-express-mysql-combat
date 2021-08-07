@@ -1,0 +1,13 @@
+{
+  "miniprogramRoot": "./dist",
+  "projectname": "taro-express-mysql-combat",
+  "description": "taro3实现完整出行OTA项目，Express写服务端，Mysql数据库，兼容四大端小程序以及H5",
+  "appid": "touristappid",
+  "setting": {
+    "urlCheck": true,
+    "es6": false,
+    "postcss": false,
+    "minified": false
+  },
+  "compileType": "miniprogram"
+}
