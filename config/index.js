@@ -1,3 +1,4 @@
+import path from 'path'
 import GLOBAL_CONSTANT from './globalConst'
 
 const config = {
@@ -23,6 +24,10 @@ const config = {
   framework: 'react',
   sass: {
     data: GLOBAL_CONSTANT, // 全局变量
+  },
+  alias: {
+    '@/components': path.resolve(__dirname, '..', 'src/components'),
+    '@/common': path.resolve(__dirname, '..', 'src/common')
   },
   mini: {
     postcss: {

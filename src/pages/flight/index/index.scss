@@ -1,65 +1,107 @@
+@import '../../../assets/iconfont/iconfont.css';
+
 .flight-top {
   background: #fff;
   position: relative;
   z-index: 10;
   margin: 0 20px;
-  border-radius: 20px 20px 0 0;
+  border-radius: 20px;
   padding: 30px 40px 40px;
   box-shadow: 0 10px 20px -4px rgba(0, 0, 0, 0.1);
   border-left: 1px solid #efefef;
   border-right: 1px solid #efefef;
-  margin-top: 186px;
+  margin-top: 168px;
 }
-.flight-tab {
-  display: flex;
-  border-bottom: 1px solid #eee;
+.item {
+  font-size: 44px;
   position: relative;
-  margin-bottom: 26px;
-  .scrollbar {
-    width: 33.333%;
-    height: 6px;
-    transition: transform 0.3s ease-in-out;
-    z-index: -1;
-    position: absolute;
-    left: 0;
-    bottom: -1px;
-    &::after {
-      height: 6px;
-      position: absolute;
-      content: "";
-      left: 50%;
-      bottom: 0;
-      transform: translateX(-50%);
-      border-radius: 6px;
-      transition: all 0.3s ease-in-out;
-      background: #{$primaryColor};
-    }
+  font-weight: 600;
+  height: 112px;
+  line-height: 112px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  &.date {
+    border-bottom: none!important;
   }
-  .flt-tab-item {
-    line-height: 60px;
-    height: 80px;
-    flex: 1;
-    text-align: center;
-    font-size: 32px;
-    position: relative;
-    &.current {
-      color: #{$primaryColor};
-      font-weight: 600;
-    }
-    &.current ~ .scrollbar {
-      z-index: 2;
-      &::after {
-        width: 60px;
-      }
-    }
+}
+.station .from, .station .to {
+  width: 45%;
+  opacity: 1;
+  transition: all 0.5s ease-out;
+}
+.flight .station .from, .flight .station .to {
+  transition: all 0.4s ease-out;
+  width: 50%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.flight .station .from {
+  padding-right: 5%;
+  padding-left: 0;
+}
+.flight .station .to {
+  padding-left: 5%;
+  padding-right: 0;
+}
+.station .to {
+  text-align: right;
+  right: 0px;
+}
+.station .from.exchange {
+  transform: translate3d(100%, 0, 0);
+  text-align: right;
+}
+.station .to.exchange {
+  transform: translate3d(-100%, 0, 0);
+  text-align: left;
+}
+.station .from.slide {
+  transform: translate3d(40%, 0, 0);
+  text-align: right;
+  opacity: 0;
+}
+.station .to.slide {
+  transform: translate3d(-40%, 0, 0);
+  text-align: left;
+  opacity: 0;
+}
+.icon-zhihuan {
+  flex: 1;
+  text-align: center;
+  font-size: 40px;
+  line-height: 110px;
+  font-weight: bolder;
+}
+
+.icon-zhihuan{
+  &.active {
+    animation: rotate .5s ease;
   }
-  .flt-tab-item:nth-of-type(1).current ~ .scrollbar {
-    transform: translate3d(0, 0, 0);
+}
+@keyframes rotate {
+  0% {
+      transform: rotate(0deg)
   }
-  .flt-tab-item:nth-of-type(2).current ~ .scrollbar {
-    transform: translate3d(100%, 0, 0);
+  100% {
+      transform: rotate(360deg)
   }
-  .flt-tab-item:nth-of-type(3).current ~ .scrollbar {
-    transform: translate3d(200%, 0, 0);
+}
+
+.search-btn {
+  background: -webkit-linear-gradient(left, #00AAFF, #{$primaryColor});
+  box-shadow: 0 10px 20px -8px rgba(42, 132, 255, 0.4);
+  height: 88px;
+  line-height: 88px;
+  color: #fff;
+  font-size: 40px;
+  font-weight: 600;
+  border-radius: 88px;
+  margin-top: 10px;
+}
+
+.flight-index-tab {
+  .tab-content {
+    height: 350px;
   }
 }
