@@ -1,9 +1,10 @@
 import React, { PureComponent } from "react";
-import { View, SwiperItem, Text, Block, Button, Image } from "@tarojs/components";
+import { View, SwiperItem, Text, Button, Swiper, Image } from "@tarojs/components";
 import Tab from "@/components/Tab";
 import NoExploit from "@/components/NoExploit";
-import { sleep } from '@/common/utils';
-import { FLIGHT_TABS_MAP } from '@/common/constant';
+import { sleep } from "@/common/utils";
+import { FLIGHT_TABS_MAP } from "@/common/constant";
+import dayjs from "dayjs";
 
 import "./index.scss";
 
@@ -28,9 +29,11 @@ export default class Flight extends PureComponent {
     super(props);
     this.state = {
       flightTab: FLIGHT_TABS_MAP["single"],
-      dptCityName: '上海',
-      arrCityName: '北京',
+      dptCityName: "上海",
+      arrCityName: "北京",
       isExchange: false,
+      dptDate: dayjs().add(1, "day").format("M月D日"), // 起飞时间
+      adList: [], // 活动列表
     };
   }
   switchFlightInnerTab = (value) => {
@@ -39,28 +42,30 @@ export default class Flight extends PureComponent {
       flightTab: value,
     });
   };
-  chooseFlightCity = () => {
-
-  }
-  chooseFlightDate = () => {
-
-  }
+  chooseFlightCity = () => {};
+  chooseFlightDate = () => {};
   exchangeCity = async () => {
-    const { dptCityName, arrCityName } = this.state
+    const { dptCityName, arrCityName } = this.state;
     this.setState({
       isExchange: true,
       dptCityName: arrCityName,
       arrCityName: dptCityName,
-    })
-    await sleep(500)
+    });
+    await sleep(500);
     this.setState({
       isExchange: false,
       dptCityName: arrCityName,
       arrCityName: dptCityName,
-    })
-  }
+    });
+  };
   render() {
-    const { flightTab, dptCityName, arrCityName, isExchange } = this.state;
+    const {
+      dptCityName,
+      arrCityName,
+      isExchange,
+      dptDate,
+      adList,
+    } = this.state;
     const { show } = this.props;
     return (
       <View className={`flight-container ${show ? "" : "hidden"}`}>
@@ -70,30 +75,53 @@ export default class Flight extends PureComponent {
             <SwiperItem>
               <View className="item station">
                 <View
-                  className={`cell from ${isExchange ? 'slide' : ''}`}
+                  className={`cell from ${isExchange ? "slide" : ""}`}
                   onClick={this.chooseFlightCity}
                 >
                   {dptCityName}
                 </View>
-                <Text onClick={this.exchangeCity} className={`icon-zhihuan icon iconfont ${isExchange ? 'active' : ''}`}></Text>
+                <Text
+                  onClick={this.exchangeCity}
+                  className={`icon-zhihuan icon iconfont ${
+                    isExchange ? "active" : ""
+                  }`}
+                ></Text>
                 <View
-                  className={`cell to ${isExchange ? 'slide' : ''}`}
+                  className={`cell to ${isExchange ? "slide" : ""}`}
                   onClick={this.chooseFlightCity}
                 >
                   {arrCityName}
                 </View>
               </View>
               <View className="item date" onClick={this.chooseFlightDate}>
-                7月8日
+                {dptDate}
               </View>
               <Button className="search-btn">机票查询</Button>
             </SwiperItem>
             {/*  往返  */}
-            <SwiperItem><NoExploit /></SwiperItem>
+            <SwiperItem>
+              <NoExploit />
+            </SwiperItem>
             {/*  多程  */}
-            <SwiperItem><NoExploit /></SwiperItem>
+            <SwiperItem>
+              <NoExploit />
+            </SwiperItem>
           </Tab>
         </View>
+        <Swiper className="advs-banner-bd" interval={3000} autoplay circular>
+          {/* {
+            adList?.map()
+          } */}
+          <SwiperItem className="item">
+            <Image
+              className="img"
+              src="https://images3.c-ctrip.com/ztrip/flightbanner/student_authentication/%25E6%259C%25BA%25E7%25A5%25A8%25E9%25A6%2596%25E9%25A1%25B5@3x.png"
+              // onClick={this.onFlightAdClick}
+            ></Image>
+          </SwiperItem>
+        </Swiper>
+        {/*  机票底部  */}
+        <View className="flight-info"></View>
       </View>
     );
   }
