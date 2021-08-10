@@ -3,6 +3,7 @@ import { View, SwiperItem, Text, Button, Swiper, Image } from "@tarojs/component
 import Tab from "@/components/Tab";
 import NoExploit from "@/components/NoExploit";
 import { sleep } from "@/common/utils";
+import Taro from '@tarojs/taro';
 import { FLIGHT_TABS_MAP } from "@/common/constant";
 import dayjs from "dayjs";
 
@@ -35,6 +36,20 @@ export default class Flight extends PureComponent {
       dptDate: dayjs().add(1, "day").format("M月D日"), // 起飞时间
       adList: [], // 活动列表
     };
+  }
+  componentDidMount() {
+    Taro.request({
+      url: 'http://localhost:3000/ads/advertising'
+    })
+      .then(res => {
+        console.log('---res---', res)
+        this.setState({
+          adList: res.data.result
+        })
+      })
+      .catch(err => {
+        console.log('---err---', err)
+      })
   }
   switchFlightInnerTab = (value) => {
     if (value === this.state.flightTab) return;
@@ -109,16 +124,19 @@ export default class Flight extends PureComponent {
           </Tab>
         </View>
         <Swiper className="advs-banner-bd" interval={3000} autoplay circular>
-          {/* {
-            adList?.map()
-          } */}
-          <SwiperItem className="item">
-            <Image
-              className="img"
-              src="https://images3.c-ctrip.com/ztrip/flightbanner/student_authentication/%25E6%259C%25BA%25E7%25A5%25A8%25E9%25A6%2596%25E9%25A1%25B5@3x.png"
-              // onClick={this.onFlightAdClick}
-            ></Image>
-          </SwiperItem>
+          {
+            adList?.map(item => {
+              return (
+                <SwiperItem className="item">
+                  <Image
+                    className="img"
+                    src={item.imgUrl}
+                    // onClick={this.onFlightAdClick}
+                  ></Image>
+                </SwiperItem>
+              )
+            })
+          }
         </Swiper>
         {/*  机票底部  */}
         <View className="flight-info"></View>

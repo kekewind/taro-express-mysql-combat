@@ -5,7 +5,7 @@ const options = {
   port: '3306',
   user: 'root',
   password: '77777777',
-  database: "student"
+  database: "flight"
 }
 // 创建数据库连接
 const connection = mysql.createConnection(options)
