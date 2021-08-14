@@ -3,8 +3,8 @@ export default {
   state: {
   },
 
-  effects: {},
+  reducers: {},
 
-  reducers: {
+  effects: {
   },
 };

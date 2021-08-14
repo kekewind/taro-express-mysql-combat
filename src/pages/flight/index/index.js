@@ -3,11 +3,13 @@ import { View, SwiperItem, Text, Button, Swiper, Image } from "@tarojs/component
 import Tab from "@/components/Tab";
 import NoExploit from "@/components/NoExploit";
 import { sleep } from "@/common/utils";
+import { adsReq } from '@/common/api';
+import { connect } from 'react-redux'
 import Taro from '@tarojs/taro';
 import { FLIGHT_TABS_MAP } from "@/common/constant";
-import dayjs from "dayjs";
 
 import "./index.scss";
+import dayjs from "dayjs";
 
 // 机票tab标签
 export const FLIGHT_TABS = [
@@ -25,30 +27,28 @@ export const FLIGHT_TABS = [
   },
 ];
 
+@connect(({flightIndex}) => ({
+  flightIndex
+}))
 export default class Flight extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       flightTab: FLIGHT_TABS_MAP["single"],
-      dptCityName: "上海",
-      arrCityName: "北京",
       isExchange: false,
-      dptDate: dayjs().add(1, "day").format("M月D日"), // 起飞时间
       adList: [], // 活动列表
     };
   }
   componentDidMount() {
-    Taro.request({
-      url: 'http://localhost:3000/ads/advertising'
-    })
+    this.getAds()
+  }
+  getAds = () => {
+    adsReq()
       .then(res => {
-        console.log('---res---', res)
+        const { result } = res
         this.setState({
-          adList: res.data.result
+          adList: result || []
         })
-      })
-      .catch(err => {
-        console.log('---err---', err)
       })
   }
   switchFlightInnerTab = (value) => {
@@ -57,31 +57,57 @@ export default class Flight extends PureComponent {
       flightTab: value,
     });
   };
-  chooseFlightCity = () => {};
-  chooseFlightDate = () => {};
+  chooseFlightCity = (type) => {
+    this.props.dispatch({
+      type: 'flightIndex/updateState',
+      payload: {
+        cityType: type,
+      }
+    })
+    Taro.navigateTo({
+      url: '/pages/airportList/airportList'
+    })
+  };
+  chooseFlightDate = () => {
+    Taro.navigateTo({
+      url: '/pages/calendar/calendar'
+    })
+  };
   exchangeCity = async () => {
-    const { dptCityName, arrCityName } = this.state;
-    this.setState({
-      isExchange: true,
+    const { dptCityName, dptCityId, arrCityId, arrCityName } = this.props.airportList;
+    const exchangeObj = {
       dptCityName: arrCityName,
+      dptCityId: arrCityId,
       arrCityName: dptCityName,
+      arrCityId: dptCityId
+    }
+    this.setState({
+      isExchange: true
     });
+    this.props.dispatch({
+      type: 'flightIndex/updateState',
+      payload: exchangeObj
+    })
     await sleep(500);
     this.setState({
       isExchange: false,
-      dptCityName: arrCityName,
-      arrCityName: dptCityName,
     });
+    this.props.dispatch({
+      type: 'flightIndex/updateState',
+      payload: exchangeObj
+    })
   };
   render() {
     const {
-      dptCityName,
-      arrCityName,
       isExchange,
-      dptDate,
       adList,
     } = this.state;
-    const { show } = this.props;
+    const { show, flightIndex } = this.props
+    const {
+      arrCityName,
+      dptCityName,
+      dptDate
+    } = flightIndex
     return (
       <View className={`flight-container ${show ? "" : "hidden"}`}>
         <View className="flight-top">
@@ -91,7 +117,7 @@ export default class Flight extends PureComponent {
               <View className="item station">
                 <View
                   className={`cell from ${isExchange ? "slide" : ""}`}
-                  onClick={this.chooseFlightCity}
+                  onClick={() => this.chooseFlightCity('depart')}
                 >
                   {dptCityName}
                 </View>
@@ -103,13 +129,13 @@ export default class Flight extends PureComponent {
                 ></Text>
                 <View
                   className={`cell to ${isExchange ? "slide" : ""}`}
-                  onClick={this.chooseFlightCity}
+                  onClick={() => this.chooseFlightCity('arrive')}
                 >
                   {arrCityName}
                 </View>
               </View>
               <View className="item date" onClick={this.chooseFlightDate}>
-                {dptDate}
+                {dayjs(dptDate).format("M月D日")}
               </View>
               <Button className="search-btn">机票查询</Button>
             </SwiperItem>

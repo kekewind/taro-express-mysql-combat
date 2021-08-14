@@ -2,6 +2,9 @@ export default {
   pages: [
     'pages/index/index',
     'pages/home/home',
+    'pages/airportList/airportList',
+    'pages/calendar/calendar',
+    'pages/flight/list/list'
   ],
   window: {
     backgroundTextStyle: 'light',

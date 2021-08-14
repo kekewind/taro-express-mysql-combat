@@ -1,6 +1,8 @@
 import { PureComponent } from "react";
 // import { connect } from 'react-redux'
 import { View, Text } from "@tarojs/components";
+import NoExploit from "@/components/NoExploit";
+
 import "./index.scss";
 
 // 页面级组件
@@ -58,6 +60,9 @@ export default class Index extends PureComponent {
         <FlightIndex
           show={tab === DEFAULT_TAB_LIST[0]['tab']}
         ></FlightIndex>
+        <View hidden={tab === DEFAULT_TAB_LIST[0]['tab']}>
+          <NoExploit />
+        </View>
       </View>
     );
   }

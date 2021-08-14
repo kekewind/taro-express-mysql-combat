@@ -27,7 +27,8 @@
     "dev:qq": "npm run build:qq -- --watch",
     "dev:jd": "npm run build:jd -- --watch",
     "dev:quickapp": "npm run build:quickapp -- --watch",
-    "server": "node ./server/index.js"
+    "server": "nodemon ./server/index.js",
+    "lint": "eslint --ext .js,.tsx,.ts,.jsx src"
   },
   "browserslist": [
     "last 3 versions",
@@ -57,13 +58,30 @@
     "@types/react": "^17.0.2",
     "@types/webpack-env": "^1.13.6",
     "babel-preset-taro": "3.2.12",
+    "body-parser": "^1.19.0",
     "dayjs": "^1.10.6",
     "eslint": "^6.8.0",
     "eslint-config-taro": "3.2.12",
     "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-react": "^7.8.2",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "^7.0.1",
+    "lint-staged": "^11.1.2",
+    "mysql": "^2.18.1",
     "prop-types": "^15.7.2",
-    "stylelint": "9.3.0"
+    "stylelint": "9.3.0",
+    "taro-ui": "^3.0.0-alpha.3",
+    "typescript": "^4.3.5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx,jsx}": [
+      "eslint --quiet --cache --fix",
+      "git add"
+    ]
   }
 }

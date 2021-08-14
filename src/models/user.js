@@ -4,11 +4,11 @@ export default {
     title: 'Hello World'
   },
 
-  effects: {},
+  reducers: {},
 
-  reducers: {
-    save(state, { payload }) {
-      return { ...state, ...payload };
-    },
+  effects: {
+    // save(state, { payload }) {
+    //   return { ...state, ...payload };
+    // },
   },
 };

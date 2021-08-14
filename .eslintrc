@@ -4,10 +4,17 @@
   "rules": {
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
+    "no-unused-vars": ["error", { "varsIgnorePattern": "Taro|wx" }],
+    "no-mixed-spaces-and-tabs": 2, // 禁止空格和 tab 的混合缩进
+    "no-debugger": 2, //禁止有debugger
+    "space-infix-ops": 2, // 要求操作符周围有空格
+    "space-before-blocks": 2, // 要求语句块之前有空格
+    "indent": ["error", 2, { "SwitchCase": 1 }], // 缩进使用两个空格
+    "jsx-quotes": ["error", "prefer-double"], // JSX属性使用双引号
     "parserOptions": {
       "ecmaFeatures": {
         "jsx": true,
-        "legacyDecorators": true
+        "legacyDecorators": true // 允许使用修饰符
       }
     }
   }

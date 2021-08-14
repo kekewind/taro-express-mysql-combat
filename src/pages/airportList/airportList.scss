@@ -1,0 +1,17 @@
+.airport-list-container {
+  background: #F5F5F5;
+  .letter-container {
+    position: fixed;
+    top: 128px;
+    right: 20px;
+    width: 44px;
+    z-index: 1;
+    .letter-item {
+      height: 40px;
+      line-height: 40px;
+      color: #999;
+      text-align: center;
+      font-size: 24px;
+    }
+  }
+}

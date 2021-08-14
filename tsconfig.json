@@ -1,9 +1,17 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
+    "experimentalDecorators": true,
     "paths": {
       "@/components/*": ["./src/components/*"],
       "@/common/*": ["./src/common/*"],
     }
-  }
+  },
+  // "include": [
+  //   "src/**/*"
+  // ],
+  // "exclude": [
+  //   "node_modules",
+  //   "dist"
+  // ]
 }
