@@ -15,7 +15,6 @@ const DEFAULT_TAB_LIST = [
   { title: "酒店", tab: "hotel" },
   { title: `汽车票`, tab: "bus" },
 ];
-
 // @connect(({users}) => ({
 //   users
 // }))
