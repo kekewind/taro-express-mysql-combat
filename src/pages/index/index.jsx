@@ -1,6 +1,6 @@
 import { PureComponent } from "react";
 // import { connect } from 'react-redux'
-import { View, Text } from "@tarojs/components";
+import { View } from "@tarojs/components";
 import NoExploit from "@/components/NoExploit";
 
 import "./index.scss";

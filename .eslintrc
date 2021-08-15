@@ -1,6 +1,6 @@
 {
   "extends": ["taro/react"],
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser", // eslint解析器
   "rules": {
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
@@ -11,11 +11,17 @@
     "space-before-blocks": 2, // 要求语句块之前有空格
     "indent": ["error", 2, { "SwitchCase": 1 }], // 缩进使用两个空格
     "jsx-quotes": ["error", "prefer-double"], // JSX属性使用双引号
-    "parserOptions": {
-      "ecmaFeatures": {
-        "jsx": true,
-        "legacyDecorators": true // 允许使用修饰符
-      }
-    }
+    "import/first": 0, // 消除绝对路径必须要在相对路径前引入的问题
+  },
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true,
+      "legacyDecorators": true, // 允许使用修饰符
+      "globalReturn": false // 设置为 true，当 sourceType 为 script 时，允许全局 return
+    },
+    "requireConfigFile": true, // 是否需要 babel 配置文件
+    "allowImportExportEverywhere": false // 设置为 true，import 和 export 声明 可以出现在文件的任务位置，否则只能出现在顶部
   }
 }

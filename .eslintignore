@@ -1,1 +1,4 @@
-/server
+server
+dist
+node_modules
+src/assests

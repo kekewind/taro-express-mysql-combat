@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import { PureComponent } from "react";
 import { View, SwiperItem, Text, Button, Swiper, Image } from "@tarojs/components";
 import Tab from "@/components/Tab";
 import NoExploit from "@/components/NoExploit";
@@ -7,9 +7,9 @@ import { adsReq } from '@/common/api';
 import { connect } from 'react-redux'
 import Taro from '@tarojs/taro';
 import { FLIGHT_TABS_MAP } from "@/common/constant";
+import dayjs from "dayjs";
 
 import "./index.scss";
-import dayjs from "dayjs";
 
 // 机票tab标签
 export const FLIGHT_TABS = [

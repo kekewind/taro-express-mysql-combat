@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { View, Text } from "@tarojs/components";
 
 import './index.scss';
+
 @connect(({flightIndex}) => ({
   ...flightIndex
 }))

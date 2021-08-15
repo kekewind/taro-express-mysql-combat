@@ -1,5 +1,5 @@
 import { View, Swiper } from '@tarojs/components';
-import React, { PureComponent } from 'react'
+import { PureComponent } from 'react'
 import PropsTypes from 'prop-types'
 
 import './index.scss'

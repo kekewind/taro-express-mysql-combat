@@ -8,7 +8,7 @@ let dispatch;
 const createApp = (opts) => {
   app = create(opts);
   app.use(createLoading({}));
-  if(!global.registered){
+  if(!global.registered) {
     // 只挂载一次model
     opts.models.forEach(model => app.model(model));
   }
