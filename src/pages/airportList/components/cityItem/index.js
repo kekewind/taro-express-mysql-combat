@@ -14,15 +14,18 @@ export default class CityItem extends PureComponent {
     const {
       cityId,
       cityName,
+      airportName,
     } = cityInfo
     console.log('cityType', cityType)
     this.props.dispatch({
       type: 'flightIndex/updateState',
       payload: cityType === "depart" ? {
         dptCityId: cityId,
+        dptAirportName: airportName,
         dptCityName: cityName
       } : {
         arrCityId: cityId,
+        arrAirportName: airportName,
         arrCityName: cityName,
       }
     })
@@ -35,7 +38,7 @@ export default class CityItem extends PureComponent {
         <Text className="label">{label}</Text>
         {
           cityList?.map(item => {
-            return <View key={item.id} className="name" onClick={() => this.onCityClick(item)}>{item.cityName}</View>
+            return <View key={item.id} className="name" onClick={() => this.onCityClick(item)}>{`${item.cityName}（${item.airportName}）`}</View>
           })
         }
       </View>

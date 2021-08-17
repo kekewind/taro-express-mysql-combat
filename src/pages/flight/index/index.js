@@ -10,6 +10,7 @@ import { FLIGHT_TABS_MAP } from "@/common/constant";
 import dayjs from "dayjs";
 
 import "./index.scss";
+import tools from "../../../common/tools";
 
 // 机票tab标签
 export const FLIGHT_TABS = [
@@ -97,6 +98,29 @@ export default class Flight extends PureComponent {
       payload: exchangeObj
     })
   };
+  onLinkToList = () => {
+    const {
+      arrCityName,
+      arrCityId,
+      arrAirportName,
+      dptCityId,
+      dptCityName,
+      dptAirportName,
+      dptDate
+    } = this.props.flightIndex
+    tools.navigateTo({
+      url: '/pages/flight/list/list',
+      data: {
+        arrCityName,
+        arrCityId,
+        dptCityId,
+        dptCityName,
+        dptDate,
+        arrAirportName,
+        dptAirportName
+      }
+    })
+  }
   render() {
     const {
       isExchange,
@@ -137,7 +161,7 @@ export default class Flight extends PureComponent {
               <View className="item date" onClick={this.chooseFlightDate}>
                 {dayjs(dptDate).format("M月D日")}
               </View>
-              <Button className="search-btn">机票查询</Button>
+              <Button className="search-btn" onClick={this.onLinkToList}>机票查询</Button>
             </SwiperItem>
             {/*  往返  */}
             <SwiperItem>
@@ -151,9 +175,9 @@ export default class Flight extends PureComponent {
         </View>
         <Swiper className="advs-banner-bd" interval={3000} autoplay circular>
           {
-            adList?.map(item => {
+            adList?.map((item) => {
               return (
-                <SwiperItem className="item">
+                <SwiperItem key={item.imgUrl} className="item">
                   <Image
                     className="img"
                     src={item.imgUrl}

@@ -85,7 +85,7 @@ export default class Main extends PureComponent {
           {
             letterList?.map(item => {
               return (
-                <View className="letter-item" onClick={() => this.onLetterClick(item)}>
+                <View key={item} className="letter-item" onClick={() => this.onLetterClick(item)}>
                   {item}
                 </View>
               )

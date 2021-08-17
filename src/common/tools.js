@@ -61,6 +61,19 @@ const tools = {
   },
   hideLoading: () => {
     return Taro.hideLoading()
+  },
+  navigateTo: ({url, data}) => {
+    let searchKeys = []
+    if (Object.prototype.toString.call(data) === "[object Object]" && Object.keys(data).length) {
+      for(let key in data) {
+        searchKeys.push(`${key}=${data[key]}`)
+      }
+    }
+    const searchStr = searchKeys.join('&');
+    console.log('searchStr', searchStr)
+    return Taro.navigateTo({
+      url: `${url}?${searchStr}`
+    })
   }
 }
 

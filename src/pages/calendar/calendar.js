@@ -1,14 +1,13 @@
 import { PureComponent } from "react";
 import { AtCalendar } from 'taro-ui'
 import { View } from "@tarojs/components";
-import dayjs from 'dayjs'
 import { connect } from 'react-redux'
 import Taro from '@tarojs/taro';
+import { MIN_DATE, MAX_DATE } from '@/common/constant'
 
 import './calendar.scss'
 
-const MIN_DATE = dayjs().format('YYYY-MM-DD')
-const MAX_DATE = dayjs().add(60, 'day').format('YYYY-MM-DD')
+
 
 @connect(({flightIndex}) => ({
   ...flightIndex

@@ -1,0 +1,45 @@
+.calendar-scroll-list {
+  width: 100%;
+  white-space: nowrap;
+}
+.calendar-list {
+  border-bottom: 1px solid #eee;
+  .item {
+    width: 112px;
+    height: 110px;
+    display: inline-block;
+    text-align: center;
+    margin-right: 10px;
+    padding: 6px 0 8px;
+    box-sizing: border-box;
+  }
+  .item::after {
+    display: table;
+    content: "";
+    clear: both;
+  }
+  .cur {
+    color: #fff;
+    border-radius: 8px;
+    background: #{$primaryColor};
+  }
+  .week {
+    font-size: 28px;
+    line-height: 38px;
+  }
+  .date {
+    font-size: 28px;
+    line-height: 52px;
+  }
+}
+
+.flight-scroll-list{width: 100vw;height:100%}
+.fltlist_item{box-sizing:border-box;background:#fff;margin:10px;padding:16px 30px 2px;position:relative;border-radius: 16px;}
+.flt_intro{display:flex;justify-content:space-between;clear: both}
+.flt_col{width:370px;flex:1;display:flex;flex-direction:row}
+.flt_depart,.flt_arrival{width:116px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.flt_depart{text-align:left}
+.flt_arrival{text-align:right}
+.flt_time{font-size:40px;font-weight: 600;line-height:56px;display: block}
+.flt_col .next{font-size: 20px;margin: 8px 0 0 4px}
+.flt_airport{display:block;font-size:24px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;line-height: 34px;margin-top: -2px}
