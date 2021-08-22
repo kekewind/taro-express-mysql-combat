@@ -5,11 +5,13 @@ const tools = {
     const {
       url = "",
       params = {},
+      method = "GET",
     } = opts
     return new Promise((resolve, reject) => {
       Taro.request({
         url,
         data: params,
+        method,
       })
         .then((res) => {
           const { data } = res

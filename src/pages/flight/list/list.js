@@ -1,14 +1,21 @@
 import { PureComponent } from "react";
-import { View, ScrollView, Text } from "@tarojs/components";
+import { View, ScrollView, Text, Image, Picker } from "@tarojs/components";
 import Taro, { getCurrentInstance } from "@tarojs/taro";
 import { MIN_DATE, MAX_DATE, ERR_MES } from "@/common/constant";
 import dayjs from "dayjs";
 import { weekDay } from "@/common/utils";
 import { flightListReq } from "@/common/api";
 import tools from "@/common/tools";
+import Skeleton from "taro-skeleton";
+import { connect } from "react-redux";
+// import VirtualList from "@/components/VirtualList";
 
+import "taro-skeleton/dist/index.css"; // 引入组件样式
 import "./list.scss";
 
+@connect(({ base }) => ({
+  base,
+}))
 export default class List extends PureComponent {
   constructor(props) {
     super(props);
@@ -16,7 +23,12 @@ export default class List extends PureComponent {
       dateList: this.formatDateList(),
       flightData: {}, // 航班参数
       flightList: [],
+      listTop: 0, // 列表距离页面顶部的距离
+      flightCompanyList: [], // 航司列表
+      curAirCompanyIndex: "", // 当前选中的下标
+      scrollTop: "",
     };
+    this.initFlightList = [];
   }
   componentDidMount() {
     const { params } = getCurrentInstance().router;
@@ -53,21 +65,38 @@ export default class List extends PureComponent {
   getList = () => {
     const { flightData } = this.state;
     tools.showLoading();
+    this.setState({
+      scrollTop: "",
+    });
     flightListReq({
       ...flightData,
     })
       .then((res) => {
         const { result } = res;
+        const companyArr = result.map((item) => item.airCompanyName);
         this.setState({
           flightList: result,
+          flightCompanyList: [...new Set(companyArr)],
+          scrollTop: 0,
         });
+        this.initFlightList = result;
       })
       .catch((err) => {
         tools.showToast(err.message || ERR_MES);
       })
       .finally(() => {
         tools.hideLoading();
+        Taro.nextTick(this.getListInfo);
       });
+  };
+  getListInfo = () => {
+    const query = Taro.createSelectorQuery();
+    query.select("#flight-list").boundingClientRect();
+    query.exec((res) => {
+      this.setState({
+        listTop: res?.[0]["top"] || 0,
+      });
+    });
   };
   formatDateList = () => {
     let minStr = dayjs(MIN_DATE).valueOf();
@@ -84,14 +113,96 @@ export default class List extends PureComponent {
     return res;
   };
   chooseDate = (date) => {
-    this.setState({
-      flightData: {
-        dptDate: date,
+    this.setState(
+      {
+        flightData: {
+          ...this.state.flightData,
+          dptDate: date,
+        },
+      },
+      this.getList
+    );
+  };
+  onAirCompanyChange = (e) => {
+    const { value } = e.detail;
+    const { flightCompanyList } = this.state;
+    this.setState(
+      {
+        curAirCompanyIndex: value,
+        scrollTop: "",
+      },
+      () => {
+        const res = this.initFlightList.filter(
+          (item) => item.airCompanyName === flightCompanyList[value]
+        );
+        this.setState({
+          flightList: res,
+          scrollTop: 0,
+        });
       }
+    );
+  };
+  onFlightClick = (curFlight) => {
+    this.props.dispatch({
+      type: "base/updateState",
+      payload: {
+        selectedFlightData: { ...curFlight },
+      },
+    });
+    tools.navigateTo({
+      url: "/pages/flight/detail/detail",
+      data: { ...curFlight },
     });
   };
+  // handleRender = (flight) => {
+  //   const {
+  //     dptAirportName,
+  //     dptTimeStr,
+  //     arrTimeStr,
+  //     arrAirportName,
+  //     airIcon,
+  //     airCompanyName,
+  //     price,
+  //   } = flight;
+  //   return (
+  //     <View
+  //       key={flight.id}
+  //       className="list-item"
+  //       onClick={() => this.onFlightClick(flight)}
+  //     >
+  //       <View className="item-price">
+  //         <View className="flight-row">
+  //           <View className="depart">
+  //             <Text className="flight-time">{dptTimeStr}</Text>
+  //             <Text className="airport-name">{dptAirportName}</Text>
+  //           </View>
+  //           <View className="separator">
+  //             <View className="spt-arr"></View>
+  //           </View>
+  //           <View className="arrival">
+  //             <Text className="flight-time">{arrTimeStr}</Text>
+  //             <Text className="airport-name">{arrAirportName}</Text>
+  //           </View>
+  //         </View>
+  //         <Text className="flight-price color-red">¥ {price}</Text>
+  //       </View>
+  //       <View className="air-info">
+  //         <Image class="logo" src={airIcon} />
+  //         <Text className="company-name">{airCompanyName}</Text>
+  //       </View>
+  //     </View>
+  //   );
+  // };
   render() {
-    const { flightData, dateList, flightList } = this.state;
+    const {
+      flightData,
+      dateList,
+      flightList,
+      listTop,
+      flightCompanyList,
+      curAirCompanyIndex,
+      scrollTop,
+    } = this.state;
     const { dptDate } = flightData;
     return (
       <View className="list-container">
@@ -119,46 +230,89 @@ export default class List extends PureComponent {
             })}
           </ScrollView>
         </View>
-        <ScrollView className="flight-scroll-list" scrollY>
-          {flightList?.map((flight) => {
-            const {
-              dptAirportName,
-              dptTimeStr,
-              arrTimeStr,
-              arrAirportName,
-              // airIcon,
-              // ariCompanyName,
-              // price,
-            } = flight
-            return (
-              <View
-                className="fltlist_item"
-                // onClick={this.handleFlightClick}
-              >
-                <View className="flt_intro">
-                  <View className="flt_col">
-                    <View className="flt_depart">
-                      <Text className="flt_time">{dptTimeStr}</Text>
-                      <Text className="torage flt_airport">
-                        {dptAirportName}
-                      </Text>
+        {/* 优化章节：虚拟列表 */}
+        {/* {flightList?.length ? (
+          <View id="flight-list" style={{ paddingTop: `${listTop ? listTop : 57}px` }}>
+            <VirtualList className="flight-scroll-list" list={flightList} onRender={this.handleRender} />
+          </View>
+        ) : (
+          <View style={{ paddingTop: `${listTop ? listTop : 57}px` }}>
+            {Array(6)
+              .fill(0)
+              .map((item, index) => {
+                return <Skeleton key={index} row={3} action rowHeight={34} />;
+              })}
+          </View>
+        )} */}
+
+        {flightList?.length ? (
+          <View
+            id="flight-list"
+            style={{ paddingTop: `${listTop ? listTop : 57}px` }}
+          >
+            <ScrollView
+              className="flight-scroll-list"
+              scrollY
+              scrollTop={scrollTop}
+            >
+              {flightList?.map((flight) => {
+                const {
+                  dptAirportName,
+                  dptTimeStr,
+                  arrTimeStr,
+                  arrAirportName,
+                  airIcon,
+                  airCompanyName,
+                  price,
+                } = flight;
+                return (
+                  <View
+                    key={flight.id}
+                    className="list-item"
+                    onClick={() => this.onFlightClick(flight)}
+                  >
+                    <View className="item-price">
+                      <View className="flight-row">
+                        <View className="depart">
+                          <Text className="flight-time">{dptTimeStr}</Text>
+                          <Text className="airport-name">{dptAirportName}</Text>
+                        </View>
+                        <View className="separator">
+                          <View className="spt-arr"></View>
+                        </View>
+                        <View className="arrival">
+                          <Text className="flight-time">{arrTimeStr}</Text>
+                          <Text className="airport-name">{arrAirportName}</Text>
+                        </View>
+                      </View>
+                      <Text className="flight-price color-red">¥ {price}</Text>
                     </View>
-                    {/* <View className="separator">
-                      {flight.abbr && (
-                        <View className="spt_type">{flight.abbr}</View>
-                      )}
-                      <View className="spt_arr"></View>
-                    </View> */}
-                    <View className="flt_arrival">
-                      <Text className="flt_time">{arrTimeStr}</Text>
-                      <Text className="torage flt_airport">{arrAirportName}</Text>
+                    <View className="air-info">
+                      <Image class="logo" src={airIcon} />
+                      <Text className="company-name">{airCompanyName}</Text>
                     </View>
                   </View>
-                </View>
-              </View>
-            );
-          })}
-        </ScrollView>
+                );
+              })}
+            </ScrollView>
+          </View>
+        ) : (
+          <View style={{ paddingTop: `${listTop ? listTop : 57}px` }}>
+            {Array(6)
+              .fill(0)
+              .map((item, index) => {
+                return <Skeleton key={index} row={3} action rowHeight={34} />;
+              })}
+          </View>
+        )}
+        <Picker
+          className={`flilter-btn ${flightList?.length ? "" : "hidden"}`}
+          range={flightCompanyList}
+          value={curAirCompanyIndex}
+          onChange={this.onAirCompanyChange}
+        >
+          筛选
+        </Picker>
       </View>
     );
   }

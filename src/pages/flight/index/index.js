@@ -8,12 +8,13 @@ import { connect } from 'react-redux'
 import Taro from '@tarojs/taro';
 import { FLIGHT_TABS_MAP } from "@/common/constant";
 import dayjs from "dayjs";
-
-import "./index.scss";
 import tools from "../../../common/tools";
 
+import "./index.scss";
+
+
 // 机票tab标签
-export const FLIGHT_TABS = [
+const FLIGHT_TABS = [
   {
     label: "单程",
     id: FLIGHT_TABS_MAP["single"],
@@ -75,7 +76,7 @@ export default class Flight extends PureComponent {
     })
   };
   exchangeCity = async () => {
-    const { dptCityName, dptCityId, arrCityId, arrCityName } = this.props.airportList;
+    const { dptCityName, dptCityId, arrCityId, arrCityName } = this.props.flightIndex;
     const exchangeObj = {
       dptCityName: arrCityName,
       dptCityId: arrCityId,
@@ -165,11 +166,11 @@ export default class Flight extends PureComponent {
             </SwiperItem>
             {/*  往返  */}
             <SwiperItem>
-              <NoExploit />
+              <NoExploit className="no-data" />
             </SwiperItem>
             {/*  多程  */}
             <SwiperItem>
-              <NoExploit />
+              <NoExploit className="no-data" />
             </SwiperItem>
           </Tab>
         </View>

@@ -18,3 +18,10 @@ export const flightListReq = (data) => tools.request({
   url: `${API_PRE}/list/singleList`,
   params: data,
 })
+
+// 登录
+export const loginReq = (data) => tools.request({
+  url: `${API_PRE}/login`,
+  params: data,
+  method: 'POST'
+})

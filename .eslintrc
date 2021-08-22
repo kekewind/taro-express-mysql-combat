@@ -11,7 +11,7 @@
     "space-before-blocks": 2, // 要求语句块之前有空格
     "indent": ["error", 2, { "SwitchCase": 1 }], // 缩进使用两个空格
     "jsx-quotes": ["error", "prefer-double"], // JSX属性使用双引号
-    "import/first": 0, // 消除绝对路径必须要在相对路径前引入的问题
+    "import/first": 0 // 消除绝对路径必须要在相对路径前引入的问题
   },
   "parserOptions": {
     "ecmaVersion": 6,

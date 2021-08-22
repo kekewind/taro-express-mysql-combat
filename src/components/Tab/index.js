@@ -7,6 +7,7 @@ import './index.scss'
 /**
  * 要点
  * 1. 规定tabList每一项的属性值必须符合组件内的要求
+ * 2. id要是从0开始的下标
  * [{
  *  id: number,
  *  label: string,
@@ -49,6 +50,8 @@ export default class Tab extends PureComponent {
   render() {
     const { currentId } = this.state
     const { tabList, children, className } = this.props
+    // 找到当前命中的tab所在的下标
+    // const curIndex = tabList?.findIndex(item => item.id === currentId)
     return (
       <View className={`tab-container ${className}`}>
         <View className="tab-bar">
@@ -61,7 +64,7 @@ export default class Tab extends PureComponent {
               )
             })
           }
-          <View className="scroll-bar" style={{width: `${100 / tabList?.length}%`}}></View>
+          <View className="scroll-bar" style={{width: `${100 / tabList?.length}%; transform: translateX(${currentId * 100}%)`}}></View>
         </View>
         <Swiper
           current={currentId}
@@ -77,6 +80,7 @@ export default class Tab extends PureComponent {
 
 Tab.defaultProps = {
   tabList: [],
+  className: "",
 }
 
 Tab.propTypes = {

@@ -37,20 +37,11 @@ $primaryColor: #0080ff;
       transition: all .3s ease-in-out;
     }
   }
-  .tab-item.active~.scroll-bar {
+  .active~.scroll-bar {
     z-index: 2;
     &::after {
       width: 60px;
     }
-  }
-  .tab-item:nth-of-type(1).active~.scroll-bar {
-    transform: translate3d(0, 0, 0);
-  }
-  .tab-item:nth-of-type(2).active~.scroll-bar {
-    transform: translate3d(100%, 0, 0);
-  }
-  .tab-item:nth-of-type(3).active~.scroll-bar {
-    transform: translate3d(200%, 0, 0);
   }
   .tab-content {
     width: 100%;

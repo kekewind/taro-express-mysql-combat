@@ -2,9 +2,11 @@ export default {
   pages: [
     'pages/index/index',
     'pages/home/home',
+    'pages/login/login',
     'pages/airportList/airportList',
     'pages/calendar/calendar',
-    'pages/flight/list/list'
+    'pages/flight/list/list',
+    'pages/flight/detail/detail',
   ],
   window: {
     backgroundTextStyle: 'light',

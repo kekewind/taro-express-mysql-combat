@@ -1,5 +1,4 @@
 import { PureComponent } from "react";
-// import { connect } from 'react-redux'
 import { View } from "@tarojs/components";
 import NoExploit from "@/components/NoExploit";
 
@@ -15,9 +14,6 @@ const DEFAULT_TAB_LIST = [
   { title: "酒店", tab: "hotel" },
   { title: `汽车票`, tab: "bus" },
 ];
-// @connect(({users}) => ({
-//   users
-// }))
 
 export default class Index extends PureComponent {
   constructor(props) {
@@ -56,12 +52,11 @@ export default class Index extends PureComponent {
             ></View>
           </View>
         </View>
-        <FlightIndex
-          show={tab === DEFAULT_TAB_LIST[0]['tab']}
-        ></FlightIndex>
-        <View hidden={tab === DEFAULT_TAB_LIST[0]['tab']}>
-          <NoExploit />
-        </View>
+        {
+          tab === "flight" ? (
+            <FlightIndex show />
+          ) : <NoExploit />
+        }
       </View>
     );
   }

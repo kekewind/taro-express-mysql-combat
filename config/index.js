@@ -30,6 +30,10 @@ const config = {
     '@/common': path.resolve(__dirname, '..', 'src/common')
   },
   mini: {
+    // prerender: {
+    //   match: 'pages/flight/**', // 所有以 `pages/flight` 开头的页面都参与 prerender
+    //   exclude: ['pages/flight/index/index'] // `pages/flight/index/index` 不用参与 prerender
+    // },
     postcss: {
       pxtransform: {
         enable: true,
@@ -55,7 +59,7 @@ const config = {
   h5: {
     publicPath: '/',
     staticDirectory: 'static',
-    esnextModules: ['taro-ui'],
+    esnextModules: ['taro-ui', 'taro-skeleton'],
     postcss: {
       autoprefixer: {
         enable: true,
