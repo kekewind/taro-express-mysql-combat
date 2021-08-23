@@ -95,7 +95,7 @@
     background-color: #{$primaryColor};
   }
 }
-.passenger-box {
+.module-box {
   background: #fff;
   border-radius: 20px;
   padding: 30px 30px;
@@ -104,7 +104,10 @@
     display: block;
     font-size: 36px;
     font-weight: 600;
+    margin-bottom: 15px;
   }
+}
+.passenger-box {
   .name {
     width: 200px;
     margin: 20px 20px 0 0;
@@ -123,14 +126,30 @@
 }
 .flight-info {
   display: block;
+  margin: 100px auto 50px;
   background: url(https://pic.c-ctrip.com/train/zt/wechat/flight-guart_v2.png);
   width: 542px;
   height: 116px;
   background-repeat: no-repeat;
   background-size: 100%;
   padding-bottom: 60px;
-  position: absolute;
-  bottom: 80px;
-  left: 50%;
-  transform: translateX(-50%);
+  // position: absolute;
+  // bottom: 80px;
+  // left: 50%;
+  // transform: translateX(-50%);
+}
+
+.insurance-name {
+  font-size: 30px;
+  color: #666;
+  display: flex;
+  justify-content: space-between;
+}
+
+.phone-box {
+  display: flex;
+  align-items: center;
+  .num-pre {
+    margin-right: 15px;
+  }
 }

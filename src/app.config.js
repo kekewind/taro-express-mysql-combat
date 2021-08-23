@@ -5,8 +5,8 @@ export default {
     'pages/login/login',
     'pages/airportList/airportList',
     'pages/calendar/calendar',
-    'pages/flight/list/list',
-    'pages/flight/detail/detail',
+    // 'pages/flight/list/list',
+    // 'pages/flight/detail/detail',
   ],
   window: {
     backgroundTextStyle: 'light',
@@ -33,5 +33,14 @@ export default {
         text: '我的订单',
       },
     ]
-  }
+  },
+  subpackages: [
+    {
+      root: "pages/flight",
+      pages: [
+        "list/list",
+        "detail/detail",
+      ]
+    }
+  ]
 }

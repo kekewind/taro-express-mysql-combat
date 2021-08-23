@@ -22,15 +22,17 @@ export default class Main extends PureComponent {
   }
   getCityList = () => {
     tools.showLoading();
+    const storageList = tools.getStorageSyncWithTime('flightCityList', 30)
+    if (storageList?.length) {
+      this.setCityListState(storageList);
+      tools.hideLoading();
+      return;
+    }
     airportCityListReq()
       .then((res) => {
         const { result } = res;
-        const cityListObj = this.formatList(result)
-        const letterList = Object.keys(cityListObj)
-        this.setState({
-          letterList,
-          cityListObj,
-        });
+        this.setCityListState(result)
+        tools.setStorageSyncWithTime('flightCityList', result)
       })
       .catch((err) => {
         const { message } = err;
@@ -43,6 +45,14 @@ export default class Main extends PureComponent {
       .finally(() => {
         tools.hideLoading();
       })
+  }
+  setCityListState = (list) => {
+    const cityListObj = this.formatList(list)
+    const letterList = Object.keys(cityListObj)
+    this.setState({
+      letterList,
+      cityListObj,
+    });
   }
   formatList = (list) => {
     const obj = {}

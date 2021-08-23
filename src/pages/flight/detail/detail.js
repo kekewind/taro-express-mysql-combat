@@ -4,12 +4,14 @@ import {
   Text,
   Button,
   Image,
+  Input,
+  // Switch
 } from "@tarojs/components";
 import { connect } from "react-redux";
 import Taro, { getCurrentInstance } from "@tarojs/taro";
 import dayjs from "dayjs";
-import { loginReq } from '@/common/api'
-import user from '@/common/user';
+// import { loginReq } from '@/common/api'
+// import user from '@/common/user';
 
 import "./detail.scss";
 
@@ -21,6 +23,7 @@ export default class Detail extends PureComponent {
     super(props);
     this.state = {
       selectedFlightData: {},
+      // isChecked: false,
     };
   }
   componentDidMount() {
@@ -33,23 +36,32 @@ export default class Detail extends PureComponent {
     });
     console.log("--params", params);
 
-    Taro.login()
-      .then((res) => {
-        console.log(res)
-        const { code } = res
-        loginReq({
-          js_code: code,
-          appid: user.appId,
-          secret: user.appSecret,
-          grant_type: 'authorization_code'
-        })
-      })
+    // Taro.login()
+    //   .then((res) => {
+    //     console.log(res)
+    //     const { code } = res
+    //     loginReq({
+    //       js_code: code,
+    //       appid: user.appId,
+    //       secret: user.appSecret,
+    //       grant_type: 'authorization_code'
+    //     })
+    //   })
   }
   getPhone = (e) => {
     console.log('---e', e)
   }
+  // onSwitchChange = (e) => {
+  //   console.log(e)
+  //   this.setState({
+  //     isChecked: e.detail.value
+  //   })
+  // }
   render() {
-    const { selectedFlightData } = this.state;
+    const { 
+      selectedFlightData,
+      // isChecked
+    } = this.state;
     const {
       airCompanyName,
       airIcon,
@@ -85,11 +97,36 @@ export default class Detail extends PureComponent {
             </View>
           </View>
         </View>
-        <View className="passenger-box">
+        <View className="passenger-box module-box">
           <Text className="title">乘机人</Text>
           <Button openType="getPhoneNumber" onGetPhoneNumber={this.getPhone} className="add-btn name">新增</Button>
           <View className="name">不浪</View>
         </View>
+        <View className="passenger-box module-box">
+          <Text className="title">联系手机</Text>
+          <View className="phone-box">
+            <Text className="num-pre">+86 </Text>
+            <Input placeholder="请输入乘机人手机号"></Input>
+          </View>
+        </View>
+        {/* 测试Taro bug */}
+        {/* <Switch
+          // checked={isChecked}
+          onChange={this.onSwitchChange}
+        ></Switch>
+        <View>
+          {
+            isChecked ? (
+              <View className="module-box">
+                <Text className="title">保险</Text>
+                <View className="insurance-name">
+                  <Text>人身意外险</Text>
+                  <Text>¥ 30/人</Text>
+                </View>
+              </View>
+            ) : null
+          }
+        </View> */}
         <View className="price-item">
           <View className="color-red">
             ¥ <Text className="price color-red">{price}</Text>

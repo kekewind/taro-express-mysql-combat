@@ -237,7 +237,7 @@ export default class List extends PureComponent {
           </View>
         ) : (
           <View style={{ paddingTop: `${listTop ? listTop : 57}px` }}>
-            {Array(6)
+            {Array(7)
               .fill(0)
               .map((item, index) => {
                 return <Skeleton key={index} row={3} action rowHeight={34} />;
@@ -298,7 +298,7 @@ export default class List extends PureComponent {
           </View>
         ) : (
           <View style={{ paddingTop: `${listTop ? listTop : 57}px` }}>
-            {Array(6)
+            {Array(7)
               .fill(0)
               .map((item, index) => {
                 return <Skeleton key={index} row={3} action rowHeight={34} />;

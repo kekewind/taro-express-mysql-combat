@@ -1,4 +1,4 @@
-import Taro from '@tarojs/taro'
+import Taro from '@tarojs/taro';
 
 const tools = {
   request: (opts) => {
@@ -76,6 +76,35 @@ const tools = {
     return Taro.navigateTo({
       url: `${url}?${searchStr}`
     })
+  },
+  setStorageSyncWithTime: (key, value) => {
+    try {
+      const startTime = Date.now()
+      Taro.setStorageSync(key, {
+        [key]: value,
+        startTime,
+      })
+    } catch(err) {
+      console.error(err)
+    }
+  },
+  /**
+   * 
+   * @{time} 缓存有效时间，单位秒	 
+   */
+  getStorageSyncWithTime: (key, time) => {
+    try {
+      const result = Taro.getStorageSync(key)
+      const { startTime } = result
+      const expiredTime = startTime + time * 1000
+      if (Date.now() > expiredTime) {
+        Taro.removeStorageSync(key)
+      } else {
+        return result[key]
+      }
+    } catch(err) {
+      console.error(err)
+    }
   }
 }
 
