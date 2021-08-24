@@ -109,7 +109,8 @@
 }
 .advs-banner-bd {
   height: 120px;
-  margin: 30px 20px;
+  // 支付宝有问题
+  // margin: 30px 20px;
   .item {
     width: 100%;
     height: 120px;
@@ -133,4 +134,9 @@
 }
 .no-data {
   margin: 0;
+}
+
+// 支付宝样式兼容
+.alipay-swiper {
+  margin: 30px 20px;
 }

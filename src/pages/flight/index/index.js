@@ -1,17 +1,23 @@
 import { PureComponent } from "react";
-import { View, SwiperItem, Text, Button, Swiper, Image } from "@tarojs/components";
+import {
+  View,
+  SwiperItem,
+  Text,
+  Button,
+  Swiper,
+  Image,
+} from "@tarojs/components";
 import Tab from "@/components/Tab";
 import NoExploit from "@/components/NoExploit";
 import { sleep } from "@/common/utils";
-import { adsReq } from '@/common/api';
-import { connect } from 'react-redux'
-import Taro from '@tarojs/taro';
+import { adsReq } from "@/common/api";
+import { connect } from "react-redux";
+import Taro from "@tarojs/taro";
 import { FLIGHT_TABS_MAP } from "@/common/constant";
 import dayjs from "dayjs";
 import tools from "../../../common/tools";
 
 import "./index.scss";
-
 
 // 机票tab标签
 const FLIGHT_TABS = [
@@ -29,8 +35,8 @@ const FLIGHT_TABS = [
   },
 ];
 
-@connect(({flightIndex}) => ({
-  flightIndex
+@connect(({ flightIndex }) => ({
+  flightIndex,
 }))
 export default class Flight extends PureComponent {
   constructor(props) {
@@ -42,17 +48,16 @@ export default class Flight extends PureComponent {
     };
   }
   componentDidMount() {
-    this.getAds()
+    this.getAds();
   }
   getAds = () => {
-    adsReq()
-      .then(res => {
-        const { result } = res
-        this.setState({
-          adList: result || []
-        })
-      })
-  }
+    adsReq().then((res) => {
+      const { result } = res;
+      this.setState({
+        adList: result || [],
+      });
+    });
+  };
   switchFlightInnerTab = (value) => {
     if (value === this.state.flightTab) return;
     this.setState({
@@ -61,43 +66,48 @@ export default class Flight extends PureComponent {
   };
   chooseFlightCity = (type) => {
     this.props.dispatch({
-      type: 'flightIndex/updateState',
+      type: "flightIndex/updateState",
       payload: {
         cityType: type,
-      }
-    })
+      },
+    });
     Taro.navigateTo({
-      url: '/pages/airportList/airportList'
-    })
+      url: "/pages/airportList/airportList",
+    });
   };
   chooseFlightDate = () => {
     Taro.navigateTo({
-      url: '/pages/calendar/calendar'
-    })
+      url: "/pages/calendar/calendar",
+    });
   };
   exchangeCity = async () => {
-    const { dptCityName, dptCityId, arrCityId, arrCityName } = this.props.flightIndex;
+    const {
+      dptCityName,
+      dptCityId,
+      arrCityId,
+      arrCityName,
+    } = this.props.flightIndex;
     const exchangeObj = {
       dptCityName: arrCityName,
       dptCityId: arrCityId,
       arrCityName: dptCityName,
-      arrCityId: dptCityId
-    }
+      arrCityId: dptCityId,
+    };
     this.setState({
-      isExchange: true
+      isExchange: true,
     });
     this.props.dispatch({
-      type: 'flightIndex/updateState',
-      payload: exchangeObj
-    })
+      type: "flightIndex/updateState",
+      payload: exchangeObj,
+    });
     await sleep(500);
     this.setState({
       isExchange: false,
     });
     this.props.dispatch({
-      type: 'flightIndex/updateState',
-      payload: exchangeObj
-    })
+      type: "flightIndex/updateState",
+      payload: exchangeObj,
+    });
   };
   onLinkToList = () => {
     const {
@@ -107,10 +117,10 @@ export default class Flight extends PureComponent {
       dptCityId,
       dptCityName,
       dptAirportName,
-      dptDate
-    } = this.props.flightIndex
+      dptDate,
+    } = this.props.flightIndex;
     tools.navigateTo({
-      url: '/pages/flight/list/list',
+      url: "/pages/flight/list/list",
       data: {
         arrCityName,
         arrCityId,
@@ -118,21 +128,14 @@ export default class Flight extends PureComponent {
         dptCityName,
         dptDate,
         arrAirportName,
-        dptAirportName
-      }
-    })
-  }
+        dptAirportName,
+      },
+    });
+  };
   render() {
-    const {
-      isExchange,
-      adList,
-    } = this.state;
-    const { show, flightIndex } = this.props
-    const {
-      arrCityName,
-      dptCityName,
-      dptDate
-    } = flightIndex
+    const { isExchange, adList } = this.state;
+    const { show, flightIndex } = this.props;
+    const { arrCityName, dptCityName, dptDate } = flightIndex;
     return (
       <View className={`flight-container ${show ? "" : "hidden"}`}>
         <View className="flight-top">
@@ -142,7 +145,7 @@ export default class Flight extends PureComponent {
               <View className="item station">
                 <View
                   className={`cell from ${isExchange ? "slide" : ""}`}
-                  onClick={() => this.chooseFlightCity('depart')}
+                  onClick={() => this.chooseFlightCity("depart")}
                 >
                   {dptCityName}
                 </View>
@@ -154,7 +157,7 @@ export default class Flight extends PureComponent {
                 ></Text>
                 <View
                   className={`cell to ${isExchange ? "slide" : ""}`}
-                  onClick={() => this.chooseFlightCity('arrive')}
+                  onClick={() => this.chooseFlightCity("arrive")}
                 >
                   {arrCityName}
                 </View>
@@ -162,7 +165,9 @@ export default class Flight extends PureComponent {
               <View className="item date" onClick={this.chooseFlightDate}>
                 {dayjs(dptDate).format("M月D日")}
               </View>
-              <Button className="search-btn" onClick={this.onLinkToList}>机票查询</Button>
+              <Button className="search-btn" onClick={this.onLinkToList}>
+                机票查询
+              </Button>
             </SwiperItem>
             {/*  往返  */}
             <SwiperItem>
@@ -174,9 +179,9 @@ export default class Flight extends PureComponent {
             </SwiperItem>
           </Tab>
         </View>
-        <Swiper className="advs-banner-bd" interval={3000} autoplay circular>
-          {
-            adList?.map((item) => {
+        <View className="alipay-swiper" style={{margin: '15px'}}>
+          <Swiper className="advs-banner-bd" interval={3000} autoplay circular>
+            {adList?.map((item) => {
               return (
                 <SwiperItem key={item.imgUrl} className="item">
                   <Image
@@ -185,10 +190,11 @@ export default class Flight extends PureComponent {
                     // onClick={this.onFlightAdClick}
                   ></Image>
                 </SwiperItem>
-              )
-            })
-          }
-        </Swiper>
+              );
+            })}
+          </Swiper>
+        </View>
+
         {/*  机票底部  */}
         <View className="flight-info"></View>
       </View>

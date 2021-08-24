@@ -77,7 +77,7 @@ export default class Main extends PureComponent {
     const { cityListObj, letterList, currentLetter } = this.state;
     return (
       <View className="airport-list-container">
-        <ScrollView scrollY scrollWithAnimation style={{ height: "100vh" }} scrollIntoView={currentLetter}>
+        <ScrollView scrollY scrollWithAnimation={tools.isAliPay ? false : true} style={{ height: "100vh" }} scrollIntoView={currentLetter}>
           {
             letterList?.map(item => {
               const cityList = cityListObj[item]

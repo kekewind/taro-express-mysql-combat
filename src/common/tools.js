@@ -105,6 +105,18 @@ const tools = {
     } catch(err) {
       console.error(err)
     }
+  },
+  isAliPay: () => {
+    return Taro.ENV_TYPE.ALIPAY === Taro.getEnv() 
+  },
+  isBaiDu: () => {
+    return Taro.ENV_TYPE.SWAN = Taro.getEnv()
+  },
+  isWeChat: () => {
+    return Taro.ENV_TYPE.WEAPP = Taro.getEnv()
+  },
+  isH5: () => {
+    return Taro.ENV_TYPE.WEB = Taro.getEnv()
   }
 }
 
