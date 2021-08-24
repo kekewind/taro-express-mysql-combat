@@ -1,10 +1,11 @@
 export default {
   pages: [
     'pages/index/index',
-    'pages/home/home',
+    'pages/order/order',
     'pages/login/login',
     'pages/airportList/airportList',
     'pages/calendar/calendar',
+    'functionalPages/webview/webview',
     // 'pages/flight/list/list',
     // 'pages/flight/detail/detail',
   ],
@@ -27,7 +28,7 @@ export default {
         text: '首页',
       },
       {
-        pagePath: 'pages/home/home',
+        pagePath: 'pages/order/order',
         iconPath: 'assets/images/order-unselected.png',
         selectedIconPath: 'assets/images/order-selected.png',
         text: '我的订单',
