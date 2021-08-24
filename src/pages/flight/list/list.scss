@@ -77,6 +77,25 @@
     position: relative;
     border-radius: 16px;
   }
+  .notice-logo {
+    width: 34px;
+    height: 34px;
+    margin: -4px 20px 0 0;
+  }
+  .notice {
+    height: 70px;
+    line-height: 70px;
+    border-radius: 16px;
+    background: #fff;
+    margin: 10px;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+  }
+  .notice-text {
+    color: #666;
+    font-size: 26px;
+  }
   .item-price {
     display: flex;
     justify-content: space-between;

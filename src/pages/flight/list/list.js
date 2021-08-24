@@ -1,5 +1,12 @@
 import { PureComponent } from "react";
-import { View, ScrollView, Text, Image, Picker } from "@tarojs/components";
+import {
+  View,
+  ScrollView,
+  Text,
+  Image,
+  Picker,
+  Block,
+} from "@tarojs/components";
 import Taro, { getCurrentInstance } from "@tarojs/taro";
 import { MIN_DATE, MAX_DATE, ERR_MES } from "@/common/constant";
 import dayjs from "dayjs";
@@ -255,7 +262,7 @@ export default class List extends PureComponent {
               scrollY
               scrollTop={scrollTop}
             >
-              {flightList?.map((flight) => {
+              {flightList?.map((flight, index) => {
                 const {
                   dptAirportName,
                   dptTimeStr,
@@ -266,32 +273,47 @@ export default class List extends PureComponent {
                   price,
                 } = flight;
                 return (
-                  <View
-                    key={flight.id}
-                    className="list-item"
-                    onClick={() => this.onFlightClick(flight)}
-                  >
-                    <View className="item-price">
-                      <View className="flight-row">
-                        <View className="depart">
-                          <Text className="flight-time">{dptTimeStr}</Text>
-                          <Text className="airport-name">{dptAirportName}</Text>
+                  <Block key={flight.id}>
+                    {
+                      index === 3 && (
+                        <View className="notice">
+                          <Image className="notice-logo" src="https://images3.c-ctrip.com/ztrip/xiaochengxu/shangzhang_zx.png"></Image>
+                          <Text className="notice-text">价格可能会上涨，建议尽快预定</Text>
+                        </View>  
+                      )
+                    }
+                    <View
+                      className="list-item"
+                      onClick={() => this.onFlightClick(flight)}
+                    >
+                      <View className="item-price">
+                        <View className="flight-row">
+                          <View className="depart">
+                            <Text className="flight-time">{dptTimeStr}</Text>
+                            <Text className="airport-name">
+                              {dptAirportName}
+                            </Text>
+                          </View>
+                          <View className="separator">
+                            <View className="spt-arr"></View>
+                          </View>
+                          <View className="arrival">
+                            <Text className="flight-time">{arrTimeStr}</Text>
+                            <Text className="airport-name">
+                              {arrAirportName}
+                            </Text>
+                          </View>
                         </View>
-                        <View className="separator">
-                          <View className="spt-arr"></View>
-                        </View>
-                        <View className="arrival">
-                          <Text className="flight-time">{arrTimeStr}</Text>
-                          <Text className="airport-name">{arrAirportName}</Text>
-                        </View>
+                        <Text className="flight-price color-red">
+                          ¥ {price}
+                        </Text>
                       </View>
-                      <Text className="flight-price color-red">¥ {price}</Text>
+                      <View className="air-info">
+                        <Image class="logo" src={airIcon} />
+                        <Text className="company-name">{airCompanyName}</Text>
+                      </View>
                     </View>
-                    <View className="air-info">
-                      <Image class="logo" src={airIcon} />
-                      <Text className="company-name">{airCompanyName}</Text>
-                    </View>
-                  </View>
+                  </Block>
                 );
               })}
             </ScrollView>
