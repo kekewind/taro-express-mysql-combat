@@ -3,7 +3,7 @@ import { View, Image, Text, SwiperItem } from "@tarojs/components";
 import Tab from "@/components/Tab";
 import NoExploit from "@/components/NoExploit";
 
-import "./home.scss";
+import "./order.scss";
 
 const TAB_LIST = [
   {
