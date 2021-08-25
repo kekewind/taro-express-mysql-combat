@@ -1,186 +1,184 @@
-@import "../../../assets/iconfont/iconfont.css";
-
 .list-container {
   height: 100vh;
   overflow: hidden;
   background-color: #efefef;
-}
-.calendar-scroll-list {
-  width: 100%;
-  white-space: nowrap;
-}
-.calendar-list {
-  border-bottom: 1px solid #eee;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1;
-  background-color: #fff;
-  .item {
-    width: 112px;
-    height: 110px;
-    display: inline-block;
-    text-align: center;
-    margin-right: 10px;
-    padding: 6px 0 8px;
-    box-sizing: border-box;
-  }
-  .item::after {
-    display: table;
-    content: "";
-    clear: both;
-  }
-  .cur {
-    color: #fff;
-    border-radius: 8px;
-    background: #{$primaryColor};
-  }
-  .week {
-    font-size: 28px;
-    line-height: 38px;
-  }
-  .date {
-    font-size: 28px;
-    line-height: 52px;
-  }
-}
-
-#flight-list {
-  height: 100%;
-  padding-top: 114px;
-  box-sizing: border-box;
-}
-
-.flight-scroll-list {
-  width: 100vw;
-  height: 100%;
-  .separator {
-    position: relative;
-    margin: 10px 22px;
-    width: 124px;
-    text-align: center;
-    line-height: 36px;
-  }
-  .spt-arr {
-    position: absolute;
-    top: 50%;
+  .calendar-scroll-list {
     width: 100%;
-    height: 2px;
-    background: #ccc;
+    white-space: nowrap;
   }
-  .list-item {
+  .calendar-list {
+    border-bottom: 1px solid #eee;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    background-color: #fff;
+    .item {
+      width: 112px;
+      height: 110px;
+      display: inline-block;
+      text-align: center;
+      margin-right: 10px;
+      padding: 6px 0 8px;
+      box-sizing: border-box;
+    }
+    .item::after {
+      display: table;
+      content: "";
+      clear: both;
+    }
+    .cur {
+      color: #fff;
+      border-radius: 8px;
+      background: #{$primaryColor};
+    }
+    .week {
+      font-size: 28px;
+      line-height: 38px;
+    }
+    .date {
+      font-size: 28px;
+      line-height: 52px;
+    }
+  }
+  
+  #flight-list {
+    height: 100%;
+    padding-top: 114px;
     box-sizing: border-box;
-    background: #fff;
-    margin: 10px;
-    padding: 16px 30px 2px;
+  }
+  
+  .flight-scroll-list {
+    width: 100vw;
+    height: 100%;
+    .separator {
+      position: relative;
+      margin: 10px 22px;
+      width: 124px;
+      text-align: center;
+      line-height: 36px;
+    }
+    .spt-arr {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      height: 2px;
+      background: #ccc;
+    }
+    .list-item {
+      box-sizing: border-box;
+      background: #fff;
+      margin: 10px;
+      padding: 16px 30px 2px;
+      position: relative;
+      border-radius: 16px;
+    }
+    .notice-logo {
+      width: 34px;
+      height: 34px;
+      margin: -4px 20px 0 0;
+    }
+    .notice {
+      height: 70px;
+      line-height: 70px;
+      border-radius: 16px;
+      background: #fff;
+      margin: 10px;
+      padding: 0 30px;
+      display: flex;
+      align-items: center;
+    }
+    .notice-text {
+      color: #666;
+      font-size: 26px;
+    }
+    .item-price {
+      display: flex;
+      justify-content: space-between;
+      clear: both;
+    }
+    .flight-row {
+      width: 370px;
+      flex: 1;
+      display: flex;
+      flex-direction: row;
+    }
+    .depart,
+    .arrival {
+      width: 116px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .depart {
+      text-align: left;
+    }
+    .arrival {
+      text-align: right;
+    }
+    .flight-time {
+      font-size: 40px;
+      font-weight: 600;
+      line-height: 56px;
+      display: block;
+    }
+    .flight-price {
+      font-size: 40px;
+      font-weight: 600;
+      line-height: 56px;
+      height: 56px;
+      overflow: hidden;
+      margin-top: 40px;
+    }
+    .airport-name {
+      display: block;
+      font-size: 24px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      line-height: 34px;
+      margin-top: -2px;
+    }
+  }
+  .air-info {
     position: relative;
-    border-radius: 16px;
-  }
-  .notice-logo {
-    width: 34px;
-    height: 34px;
-    margin: -4px 20px 0 0;
-  }
-  .notice {
-    height: 70px;
-    line-height: 70px;
-    border-radius: 16px;
-    background: #fff;
-    margin: 10px;
-    padding: 0 30px;
+    padding: 20px 0;
+    line-height: 1;
+    font-size: 22px;
     display: flex;
     align-items: center;
+    .logo {
+      width: 28px;
+      height: 28px;
+      vertical-align: middle;
+      margin: -4px 6px 0 0;
+      position: relative;
+    }
+    .company-name {
+      font-size: 22px;
+      color: #999;
+      display: inline-block;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
   }
-  .notice-text {
-    color: #666;
-    font-size: 26px;
-  }
-  .item-price {
-    display: flex;
-    justify-content: space-between;
-    clear: both;
-  }
-  .flight-row {
-    width: 370px;
-    flex: 1;
-    display: flex;
-    flex-direction: row;
-  }
-  .depart,
-  .arrival {
-    width: 116px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  .depart {
-    text-align: left;
-  }
-  .arrival {
-    text-align: right;
-  }
-  .flight-time {
-    font-size: 40px;
-    font-weight: 600;
-    line-height: 56px;
-    display: block;
-  }
-  .flight-price {
-    font-size: 40px;
-    font-weight: 600;
-    line-height: 56px;
-    height: 56px;
-    overflow: hidden;
-    margin-top: 40px;
-  }
-  .airport-name {
-    display: block;
+  .flilter-btn {
+    width: 92px;
+    height: 92px;
+    line-height: 92px;
+    position: fixed;
+    z-index: 100;
+    background: #fff;
+    border-radius: 100px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    right: 30px;
+    bottom: 160px;
     font-size: 24px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    line-height: 34px;
-    margin-top: -2px;
+    color: #666;
+    padding: 0;
+    text-align: center;
   }
-}
-.air-info {
-  position: relative;
-  padding: 20px 0;
-  line-height: 1;
-  font-size: 22px;
-  display: flex;
-  align-items: center;
-  .logo {
-    width: 28px;
-    height: 28px;
-    vertical-align: middle;
-    margin: -4px 6px 0 0;
-    position: relative;
-  }
-  .company-name {
-    font-size: 22px;
-    color: #999;
-    display: inline-block;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-}
-.flilter-btn {
-  width: 92px;
-  height: 92px;
-  line-height: 92px;
-  position: fixed;
-  z-index: 100;
-  background: #fff;
-  border-radius: 100px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  right: 30px;
-  bottom: 160px;
-  font-size: 24px;
-  color: #666;
-  padding: 0;
-  text-align: center;
 }
 

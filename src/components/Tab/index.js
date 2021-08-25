@@ -52,6 +52,10 @@ export default class Tab extends PureComponent {
     const { tabList, children, className } = this.props
     // 找到当前命中的tab所在的下标
     // const curIndex = tabList?.findIndex(item => item.id === currentId)
+    const innerStyle = {
+      width: `${100 / tabList?.length}%`,
+      transform: `translateX(${currentId * 100}%)`
+    }
     return (
       <View className={`tab-container ${className}`}>
         <View className="tab-bar">
@@ -64,7 +68,7 @@ export default class Tab extends PureComponent {
               )
             })
           }
-          <View className="scroll-bar" style={{width: `${100 / tabList?.length}%; transform: translateX(${currentId * 100}%)`}}></View>
+          <View className="scroll-bar" style={innerStyle}></View>
         </View>
         <Swiper
           current={currentId}

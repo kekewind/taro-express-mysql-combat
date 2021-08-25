@@ -3,153 +3,153 @@
   min-height: 100vh;
   padding: 20px;
   position: relative;
-}
-.flight-segment {
-  background: #fff;
-  border-radius: 20px;
-  padding: 30px 20px;
-  .info-head {
+  .flight-segment {
+    background: #fff;
+    border-radius: 20px;
+    padding: 30px 20px;
+    .info-head {
+      display: flex;
+      align-items: flex-start;
+      .tag {
+        line-height: 40px;
+        padding: 0 16px;
+        border-radius: 40px;
+        color: #fff;
+        font-size: 22px;
+        margin-right: 12px;
+        background-color: #{$primaryColor};
+      }
+      .logo {
+        width: 30px;
+        height: 30px;
+        margin-right: 8px;
+      }
+      .company-info {
+        height: 40px;
+        display: flex;
+        flex-flow: row wrap;
+        align-items: center;
+        font-size: 24px;
+      }
+    }
+    .info-detail {
+      margin: 24px 10px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-flow: row wrap;
+      .from,
+      .to {
+        width: 180px;
+      }
+      .to {
+        text-align: right;
+      }
+      .time {
+        font-size: 56px;
+        font-weight: bold;
+        line-height: 68px;
+        color: #222;
+      }
+      .station {
+        font-size: 24px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+      .mid {
+        text-align: center;
+        flex: 1;
+        width: 214px;
+      height: 38px;
+      vertical-align: middle;
+      margin: 20px auto 0;
+      }
+    }
+  }
+  
+  .price-item {
+    padding: 36px 36px 32px 30px;
     display: flex;
-    align-items: flex-start;
-    .tag {
-      line-height: 40px;
-      padding: 0 16px;
-      border-radius: 40px;
+    align-items: center;
+    background: #fff;
+    border-radius: 20px;
+    justify-content: space-between;
+    margin-top: 30px;
+    .price {
+      font-size: 58px;
+      font-family: NumFont;
+      margin-right: 8px;
+      line-height: 60px;
+      height: 60px;
+    }
+    .order-btn {
+      width: 92px;
+      height: 92px;
+      border-radius: 12px;
+      font-weight: bold;
+      line-height: 92px;
       color: #fff;
-      font-size: 22px;
-      margin-right: 12px;
+      text-align: center;
       background-color: #{$primaryColor};
     }
-    .logo {
-      width: 30px;
-      height: 30px;
-      margin-right: 8px;
-    }
-    .company-info {
-      height: 40px;
-      display: flex;
-      flex-flow: row wrap;
-      align-items: center;
-      font-size: 24px;
-    }
   }
-  .info-detail {
-    margin: 24px 10px;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    flex-flow: row wrap;
-    .from,
-    .to {
-      width: 180px;
-    }
-    .to {
-      text-align: right;
-    }
-    .time {
-      font-size: 56px;
-      font-weight: bold;
-      line-height: 68px;
-      color: #222;
-    }
-    .station {
-      font-size: 24px;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
-    .mid {
-      text-align: center;
-      flex: 1;
-      width: 214px;
-    height: 38px;
-    vertical-align: middle;
-    margin: 20px auto 0;
-    }
-  }
-}
-
-.price-item {
-  padding: 36px 36px 32px 30px;
-  display: flex;
-  align-items: center;
-  background: #fff;
-  border-radius: 20px;
-  justify-content: space-between;
-  margin-top: 30px;
-  .price {
-    font-size: 58px;
-    font-family: NumFont;
-    margin-right: 8px;
-    line-height: 60px;
-    height: 60px;
-  }
-  .order-btn {
-    width: 92px;
-    height: 92px;
-    border-radius: 12px;
-    font-weight: bold;
-    line-height: 92px;
-    color: #fff;
-    text-align: center;
-    background-color: #{$primaryColor};
-  }
-}
-.module-box {
-  background: #fff;
-  border-radius: 20px;
-  padding: 30px 30px;
-  margin-top: 30px;
-  .title {
-    display: block;
-    font-size: 36px;
-    font-weight: 600;
-    margin-bottom: 15px;
-  }
-}
-.passenger-box {
-  .name {
-    width: 200px;
-    margin: 20px 20px 0 0;
-    text-align: center;
-    height: 74px;
-    line-height: 74px;
-    border: 2px solid #CCC;
-    border-radius: 16px;
-    padding: 0 10px;
-    box-sizing: border-box;
+  .module-box {
     background: #fff;
+    border-radius: 20px;
+    padding: 30px 30px;
+    margin-top: 30px;
+    .title {
+      display: block;
+      font-size: 36px;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
   }
-  .add-btn {
-    color: #{$primaryColor};
+  .passenger-box {
+    .name {
+      width: 200px;
+      margin: 20px 20px 0 0;
+      text-align: center;
+      height: 74px;
+      line-height: 74px;
+      border: 2px solid #CCC;
+      border-radius: 16px;
+      padding: 0 10px;
+      box-sizing: border-box;
+      background: #fff;
+    }
+    .add-btn {
+      color: #{$primaryColor};
+    }
   }
-}
-.flight-info {
-  display: block;
-  margin: 100px auto 50px;
-  background: url(https://pic.c-ctrip.com/train/zt/wechat/flight-guart_v2.png);
-  width: 542px;
-  height: 116px;
-  background-repeat: no-repeat;
-  background-size: 100%;
-  padding-bottom: 60px;
-  // position: absolute;
-  // bottom: 80px;
-  // left: 50%;
-  // transform: translateX(-50%);
-}
-
-.insurance-name {
-  font-size: 30px;
-  color: #666;
-  display: flex;
-  justify-content: space-between;
-}
-
-.phone-box {
-  display: flex;
-  align-items: center;
-  .num-pre {
-    margin-right: 15px;
+  .flight-info {
+    display: block;
+    margin: 100px auto 50px;
+    background: url(https://pic.c-ctrip.com/train/zt/wechat/flight-guart_v2.png);
+    width: 542px;
+    height: 116px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    padding-bottom: 60px;
+    // position: absolute;
+    // bottom: 80px;
+    // left: 50%;
+    // transform: translateX(-50%);
+  }
+  
+  .insurance-name {
+    font-size: 30px;
+    color: #666;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .phone-box {
+    display: flex;
+    align-items: center;
+    .num-pre {
+      margin-right: 15px;
+    }
   }
 }
