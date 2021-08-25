@@ -39,3 +39,26 @@
     margin-top: 20px;
   }
 }
+
+.no-login-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .txt {
+    font-size: 34px;
+    color: #666;
+  }
+  .login-btn {
+    background: #{$primaryColor};
+    width: 536px;
+    height: 88px;
+    margin-top: 80px;
+    border-radius: 88px;
+    font-size: 36px;
+    line-height: 88px;
+    color: #fff;
+  }
+}
