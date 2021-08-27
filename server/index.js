@@ -3,9 +3,25 @@ const http = require('http');
 const app = express()
 const bodyParser = require('body-parser')
 const models = require('./models')
+const session = require("express-session");
+const cookieParser = require("cookie-parser");
 
 // 中间件：post请求时的请求体解析{ name: 'wang', password: '123456' }
 app.use(bodyParser.json())
+
+app.use(session({
+  secret: "lsfdjlsjfljdgk",
+  resave: true, // 强制保存session
+  cookie: {
+    maxAge: 7 * 24 * 60 * 60 * 1000 // 设置session的有效期为1周
+  },
+  saveUninitialized: true // 是否保存初始化的session
+}))
+app.use(express.json());
+app.use(express.urlencoded({
+  extended: false
+}));
+app.use(cookieParser('secret'))
 
 models(app)
 // 创建服务
