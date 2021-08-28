@@ -46,6 +46,7 @@
     "dva-core": "^2.0.4",
     "dva-loading": "^3.0.22",
     "express": "^4.17.1",
+    "mysql2": "^2.3.0",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "react-redux": "^7.2.4"
@@ -70,7 +71,6 @@
     "express-session": "^1.17.2",
     "husky": "^4.2.3",
     "lint-staged": "^8.0.3",
-    "mysql": "^2.18.1",
     "prop-types": "^15.7.2",
     "stylelint": "9.3.0",
     "taro-skeleton": "^2.0.3",
