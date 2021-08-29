@@ -1,4 +1,5 @@
 import Taro from '@tarojs/taro';
+import { USER_VALID_TIME } from '@/common/constant';
 
 const tools = {
   request: (opts) => {
@@ -117,6 +118,20 @@ const tools = {
   },
   isH5: () => {
     return Taro.ENV_TYPE.WEB = Taro.getEnv()
+  },
+  /**
+   * 
+   * @{param}	 fn 如果判断登录了就执行fn
+   */
+  doLogin: (fn) => {
+    const user = tools.getStorageSyncWithTime('userInfo', USER_VALID_TIME)
+    if (!user?.userPhone) {
+      tools.navigateTo({
+        url: '/pages/login/login',
+      })
+    } else {
+      fn?.()
+    }
   }
 }
 

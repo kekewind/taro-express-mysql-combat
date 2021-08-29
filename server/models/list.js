@@ -46,6 +46,7 @@ router.get("/singleList", async (req, res) => {
     dptCityName,
     arrCityName,
     arrAirportName,
+    dptDate,
   } = req.query
   const strSql = `select * from flight_list`;
   try {
@@ -58,7 +59,8 @@ router.get("/singleList", async (req, res) => {
       arrAirportName,
       dptTimeStr: dayjs(item.dptTime).format("HH:mm"),
       arrTimeStr: dayjs(item.arrTime).format("HH:mm"),
-      price: randomPrice(300, 1000)
+      price: randomPrice(300, 1000),
+      dptTime: dptDate, // 模拟日期选择
     }))
     res.send({
       code: 1,

@@ -1,4 +1,7 @@
 .home-container {
+  background: #efefef;
+  min-height: 100vh;
+  position: relative;
   .user-box {
     height: 110px;
     padding: 0 30px;
@@ -36,7 +39,47 @@
     }
   }
   .tab {
-    margin-top: 20px;
+    margin-bottom: 20px;
+    
+    .tab-bar {
+      padding-top: 20px;
+      background: #fff;
+    }
+    .tab-content {
+      position: absolute;
+      top: 210px;
+      bottom: 0;
+    }
+  }
+  .order-list-box {
+    padding: 20px;
+    box-sizing: border-box;
+    .item {
+      background: #fff;
+      padding: 30px;
+      display: flex;
+      justify-content: space-between;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+    .left {
+      flex: 1;
+    }
+    .right {
+      color: #666;
+      font-size: 28px;
+    }
+    .line {
+      font-size: 32px;
+      margin-bottom: 10px;
+      font-weight: 600;
+      line-height: 44px;
+    }
+    .time {
+      font-size: 24px;
+      color: #666;
+      line-height: 40px;
+    }
   }
 }
 

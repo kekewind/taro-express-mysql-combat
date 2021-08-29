@@ -1,13 +1,10 @@
 const express = require('express');
 const http = require('http');
 const app = express()
-const bodyParser = require('body-parser')
+// const bodyParser = require('body-parser')
 const models = require('./models')
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
-
-// 中间件：post请求时的请求体解析{ name: 'wang', password: '123456' }
-app.use(bodyParser.json())
 
 app.use(session({
   secret: "lsfdjlsjfljdgk",
@@ -18,9 +15,10 @@ app.use(session({
   saveUninitialized: true // 是否保存初始化的session
 }))
 app.use(express.json());
+// 中间件：post请求时的请求体解析{ name: 'wang', password: '123456' }
 app.use(express.urlencoded({
-  extended: false
-}));
+  extended: false,
+}))
 app.use(cookieParser('secret'))
 
 models(app)

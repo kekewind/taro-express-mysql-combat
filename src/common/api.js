@@ -25,3 +25,16 @@ export const loginReq = (data) => tools.request({
   params: data,
   method: 'POST'
 })
+
+// 订票
+export const orderReq = (data) => tools.request({
+  url: `${API_PRE}/order/order`,
+  params: data,
+  method: 'POST'
+})
+
+// 查询订票
+export const orderListReq = (data) => tools.request({
+  url: `${API_PRE}/order/getOrderList`,
+  params: data,
+})

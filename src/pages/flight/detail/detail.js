@@ -10,13 +10,18 @@ import {
 import { connect } from "react-redux";
 import Taro, { getCurrentInstance } from "@tarojs/taro";
 import dayjs from "dayjs";
-// import { loginReq } from '@/common/api'
+import loginDecorator from "@/components/LoginDecorator";
+import tools from '@/common/tools'
+import { orderReq } from '@/common/api'
 // import user from '@/common/user';
 
 import "./detail.scss";
+import { ERR_MES } from "../../../common/constant";
 
-@connect(({ base }) => ({
+@loginDecorator
+@connect(({ base, user }) => ({
   base,
+  user
 }))
 export default class Detail extends PureComponent {
   constructor(props) {
@@ -27,7 +32,6 @@ export default class Detail extends PureComponent {
     };
   }
   componentDidMount() {
-    console.log("--", this.props.base);
     const { params } = getCurrentInstance().router;
     this.setState({
       selectedFlightData: {
@@ -48,15 +52,49 @@ export default class Detail extends PureComponent {
     //     })
     //   })
   }
-  getPhone = (e) => {
-    console.log('---e', e)
-  }
+  // getPhone = (e) => {
+  //   console.log('---e', e)
+  // }
   // onSwitchChange = (e) => {
   //   console.log(e)
   //   this.setState({
   //     isChecked: e.detail.value
   //   })
   // }
+  onOrder = () => {
+    const {
+      userPhone,
+    } = this.props.user
+    const { 
+      selectedFlightData,
+    } = this.state;
+    tools.showLoading()
+    tools.doLogin(() => {
+      orderReq({
+        userPhone,
+        orderInfo: selectedFlightData
+      })
+        .then(() => {
+          tools.showToast({
+            title: '预定成功...',
+            icon: "loading"
+          })
+            .then(() => {
+              setTimeout(() => {
+                Taro.switchTab({
+                  url: '/pages/order/order'
+                })
+              }, 2000)
+            })
+        })
+        .catch(err => {
+          tools.showToast(err?.data?.mes || ERR_MES)
+        })
+        .finally(() => {
+          tools.hideLoading()
+        })
+    })
+  }
   render() {
     const { 
       selectedFlightData,
@@ -72,6 +110,12 @@ export default class Detail extends PureComponent {
       dptTimeStr,
       price,
     } = selectedFlightData;
+    console.log(this.props)
+    const {
+      isLogin,
+      userPhone,
+      nickName
+    } = this.props.user
     return (
       <View className="detail-container">
         <View className="flight-segment">
@@ -99,14 +143,15 @@ export default class Detail extends PureComponent {
         </View>
         <View className="passenger-box module-box">
           <Text className="title">乘机人</Text>
-          <Button openType="getPhoneNumber" onGetPhoneNumber={this.getPhone} className="add-btn name">新增</Button>
-          <View className="name">不浪</View>
+          {
+            isLogin ? <View className="name">{nickName}</View> : <Button className="add-btn name" onClick={tools.goLoginPage}>新增</Button>
+          }
         </View>
         <View className="passenger-box module-box">
           <Text className="title">联系手机</Text>
           <View className="phone-box">
             <Text className="num-pre">+86 </Text>
-            <Input placeholder="请输入乘机人手机号"></Input>
+            <Input disabled placeholder="请输入乘机人手机号" value={userPhone}></Input>
           </View>
         </View>
         {/* 测试Taro bug */}
@@ -131,7 +176,7 @@ export default class Detail extends PureComponent {
           <View className="color-red">
             ¥ <Text className="price color-red">{price}</Text>
           </View>
-          <View className="order-btn">订</View>
+          <View className="order-btn" onClick={this.onOrder}>订</View>
         </View>
         {/*  机票底部  */}
         <View className="flight-info"></View>
