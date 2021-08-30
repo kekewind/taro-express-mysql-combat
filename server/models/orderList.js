@@ -41,9 +41,9 @@ router.post("/order", async (req, res) => {
 })
 
 // TODO: 使用联结查询
-router.get('/getOrderList', async (req, res) => {
+router.post('/getOrderList', async (req, res) => {
   try {
-    const { userPhone } = req.query
+    const { userPhone } = req.body
     // asc:升序 desc:降序
     const querySql = `select * from orderList where userPhone=${userPhone} order by id desc`
     const result = await sqlQuery(querySql)

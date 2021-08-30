@@ -38,4 +38,5 @@ export const orderReq = (data) => tools.request({
 export const orderListReq = (data) => tools.request({
   url: `${API_PRE}/order/getOrderList`,
   params: data,
+  method: 'POST'
 })
