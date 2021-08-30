@@ -5,7 +5,7 @@ const userInfo = tools.getStorageSyncWithTime('userInfo', USER_VALID_TIME)
 const INIT_STATE = {
   isLogin: !!userInfo?.userPhone,
   userPhone: userInfo?.userPhone,
-  nickName: userInfo.nickName
+  nickName: userInfo?.nickName
 }
 export default {
   namespace: 'user',
@@ -18,6 +18,11 @@ export default {
       return {
         ...state,
         ...action.payload,
+      }
+    },
+    loginOut() {
+      return {
+        ...INIT_STATE
       }
     }
   },

@@ -23,16 +23,21 @@ router.post("/login", async (req, res) => {
     const result = await sqlQuery(sqlStr);
     console.log("res--->", result);
     if (result.length) {
-      const passwordStr = `select nickName,password from user where userPhone=${userPhone}`;
-      const pwRes = await sqlQuery(passwordStr);
-      console.log("--pwRes--", pwRes);
-      if (pwRes.length && pwRes[0].password === password) {
+      // 如果手机号对，则更新其名称
+      const userInfo = `select nickName,password from user where userPhone=${userPhone}`;
+      const userInfoRes = await sqlQuery(userInfo);
+      if (userInfoRes.length && userInfoRes[0].password === password) {
+        if (nickName !== userInfoRes[0]['nickName']) {
+          // 如果名称跟表中的不同，则更新
+          const updateSql = `update user set nickName='${nickName}' where userPhone=${userPhone}`
+          await sqlQuery(updateSql)
+        }
         res.send({
           code: 1,
           mes: "登录成功",
           result: {
             userPhone,
-            nickName: pwRes[0].nickName
+            nickName
           }
         });
       } else {

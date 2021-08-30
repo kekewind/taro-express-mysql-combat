@@ -1,5 +1,6 @@
 import { PureComponent } from "react";
 import { View, Text, SwiperItem, Button, ScrollView } from "@tarojs/components";
+import Taro, { eventCenter, getCurrentInstance } from '@tarojs/taro';
 import Tab from "@/components/Tab";
 import NoExploit from "@/components/NoExploit";
 import tools from "@/common/tools";
@@ -42,9 +43,15 @@ export default class Home extends PureComponent {
     };
   }
   componentDidMount() {
-    this.getOrderList();
+    if (this.props.isLogin) {
+      // 获取当前实例onShow方法并定义方法名为onShowEventId
+      const onShowEventId = this.$instance.router.onShow
+      // 触发Taro的消息机制
+      eventCenter.on(onShowEventId, this.onShow)
+    }
   }
-  componentDidShow() {
+  $instance = getCurrentInstance()
+  onShow = () => {
     console.log('--did show---')
     this.getOrderList();
   }
@@ -72,6 +79,21 @@ export default class Home extends PureComponent {
       url: "/pages/login/login",
     });
   };
+  onLoginOut = () => {
+    try {
+      Taro.removeStorageSync("userInfo")
+      tools.showToast({
+        title: '操作成功～',
+        icon: 'loading',
+        duration: 1000,
+      })
+      this.props.dispatch({
+        type: 'user/loginOut',
+      })
+    } catch(err) {
+      tools.showToast("操作失败~")
+    }
+  }
   renderListItem = () => {
     const { orderList } = this.state;
     return orderList?.length ? (
@@ -100,13 +122,12 @@ export default class Home extends PureComponent {
   };
   render() {
     const { isLogin, nickName } = this.props;
-
     return isLogin ? (
       <View className="home-container">
         <View className="user-box">
           {/* <Image src="" className="avatar"></Image> */}
           <Text className="user-name">欢迎，{nickName || "--"}</Text>
-          <Text className="login-out-btn">退出</Text>
+          <Text className="login-out-btn" onClick={this.onLoginOut}>退出</Text>
         </View>
         <Tab tabList={TAB_LIST} className="tab">
           {TAB_LIST.map((tab) => {
