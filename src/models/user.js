@@ -1,16 +1,18 @@
 import { USER_VALID_TIME } from '@/common/constant';
 import tools from "@/common/tools";
 
-const userInfo = tools.getStorageSyncWithTime('userInfo', USER_VALID_TIME)
-const INIT_STATE = {
-  isLogin: !!userInfo?.userPhone,
-  userPhone: userInfo?.userPhone,
-  nickName: userInfo?.nickName
+const init = () => {
+  const userInfo = tools.getStorageSyncWithTime('userInfo', USER_VALID_TIME)
+  return {
+    isLogin: !!userInfo?.userPhone,
+    userPhone: userInfo?.userPhone,
+    nickName: userInfo?.nickName
+  }
 }
 export default {
   namespace: 'user',
   state: {
-    ...INIT_STATE
+    ...init()
   },
 
   reducers: {
@@ -22,7 +24,7 @@ export default {
     },
     loginOut() {
       return {
-        ...INIT_STATE
+        ...init()
       }
     }
   },

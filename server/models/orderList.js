@@ -44,9 +44,9 @@ router.post("/order", async (req, res) => {
 router.get('/getOrderList', async (req, res) => {
   try {
     const { userPhone } = req.query
-    const querySql = `select * from orderList where userPhone=${userPhone}`
+    // asc:升序 desc:降序
+    const querySql = `select * from orderList where userPhone=${userPhone} order by id desc`
     const result = await sqlQuery(querySql)
-    result.reverse()
     res.send({
       code: 1,
       mes: "查询成功",

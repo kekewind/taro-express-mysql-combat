@@ -43,17 +43,17 @@ export default class Home extends PureComponent {
     };
   }
   componentDidMount() {
-    if (this.props.isLogin) {
-      // 获取当前实例onShow方法并定义方法名为onShowEventId
-      const onShowEventId = this.$instance.router.onShow
-      // 触发Taro的消息机制
-      eventCenter.on(onShowEventId, this.onShow)
-    }
+    // 获取当前实例onShow方法并定义方法名为onShowEventId
+    const onShowEventId = this.$instance.router.onShow
+    // 触发Taro的消息机制
+    eventCenter.on(onShowEventId, this.onShow)
   }
   $instance = getCurrentInstance()
   onShow = () => {
     console.log('--did show---')
-    this.getOrderList();
+    if (this.props.isLogin) {
+      this.getOrderList();
+    }
   }
   getOrderList = () => {
     tools.showLoading();

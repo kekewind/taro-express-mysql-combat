@@ -68,8 +68,8 @@ export default class Detail extends PureComponent {
     const { 
       selectedFlightData,
     } = this.state;
-    tools.showLoading()
     tools.doLogin(() => {
+      tools.showLoading()
       orderReq({
         userPhone,
         orderInfo: selectedFlightData
