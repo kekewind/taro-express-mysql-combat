@@ -101,7 +101,7 @@ export default class List extends PureComponent {
     query.select("#flight-list").boundingClientRect();
     query.exec((res) => {
       this.setState({
-        listTop: res?.[0]["top"] || 0,
+        listTop: res?.[0]?.["top"] || 0,
       });
     });
   };
