@@ -1,6 +1,8 @@
 import path from 'path'
 import GLOBAL_CONSTANT from './globalConst'
 
+const TARO_ENV = process.env.TARO_ENV
+console.log('taro--env--', TARO_ENV)
 const config = {
   projectName: 'taro-express-mysql-combat',
   date: '2021-8-7',
@@ -11,7 +13,7 @@ const config = {
     828: 1.81 / 2
   },
   sourceRoot: 'src',
-  outputRoot: 'dist',
+  outputRoot: `dist/${TARO_ENV}`,
   plugins: [],
   defineConstants: {
   },

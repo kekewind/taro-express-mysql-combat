@@ -327,14 +327,16 @@ export default class List extends PureComponent {
               })}
           </View>
         )}
-        <Picker
-          className={`flilter-btn ${flightList?.length ? "" : "hidden"}`}
-          range={flightCompanyList}
-          value={curAirCompanyIndex}
-          onChange={this.onAirCompanyChange}
-        >
-          筛选
-        </Picker>
+        {/* 此处用View包裹兼容支付宝的展示 */}
+        <View className={`flilter-btn ${flightList?.length ? "" : "hidden"}`}>
+          <Picker
+            range={flightCompanyList}
+            value={curAirCompanyIndex}
+            onChange={this.onAirCompanyChange}
+          >
+            筛选
+          </Picker>
+        </View>
       </View>
     );
   }

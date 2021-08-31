@@ -77,14 +77,15 @@ export default class Detail extends PureComponent {
         .then(() => {
           tools.showToast({
             title: '预定成功...',
-            icon: "loading"
+            icon: "loading",
+            duration: 2000,
           })
             .then(() => {
-              setTimeout(() => {
-                Taro.switchTab({
-                  url: '/pages/order/order'
-                })
-              }, 2000)
+              // setTimeout(() => {
+              Taro.switchTab({
+                url: '/pages/order/order'
+              })
+              // }, 1000)
             })
         })
         .catch(err => {

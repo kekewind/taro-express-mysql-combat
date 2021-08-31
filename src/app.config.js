@@ -35,7 +35,7 @@ export default {
       },
     ]
   },
-  subpackages: [
+  subPackages: [
     {
       root: "pages/flight",
       pages: [
