@@ -13,6 +13,7 @@ const tools = {
         url,
         data: params,
         method,
+        // mode: 'no-cors'
       })
         .then((res) => {
           const { data } = res
