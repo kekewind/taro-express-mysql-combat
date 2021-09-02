@@ -181,5 +181,32 @@
     padding: 0;
     text-align: center;
   }
+
+  .skeleton {
+    display: flex;
+    align-items: center;
+    padding: 20px 30px;
+    background: #fff;
+    line-height: 20px;
+    animation: skeleton-blink 1.2s ease-in-out infinite;
+    .skeleton-row {
+      width: 100%;
+      height: 34px;
+      border-radius: 4px;
+      background-color: #f2f3f5;
+    }
+    .skeleton-action {
+      margin-left: 20px;
+      height: 60px;
+      width: 120px;
+      border-radius: 4px;
+      background-color: #f2f3f5;
+    }
+  }
+  @keyframes skeleton-blink {
+    50% {
+      opacity: .6;
+    }
+  }
 }
 

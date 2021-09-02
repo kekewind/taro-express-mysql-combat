@@ -13,7 +13,7 @@ import dayjs from "dayjs";
 import { weekDay } from "@/common/utils";
 import { flightListReq } from "@/common/api";
 import tools from "@/common/tools";
-import Skeleton from "taro-skeleton";
+// import Skeleton from "taro-skeleton";
 import { connect } from "react-redux";
 // import VirtualList from "@/components/VirtualList";
 
@@ -223,7 +223,7 @@ export default class List extends PureComponent {
             {dateList.map((date) => {
               return (
                 <View
-                  key={date}
+                  key={date.dateStr}
                   className={`item ${
                     date.dateStr === dptDate ? "cur bgcolor-primary" : ""
                   }`}
@@ -252,7 +252,7 @@ export default class List extends PureComponent {
           </View>
         )} */}
 
-        {flightList?.length ? (
+        {flightList.length ? (
           <View
             id="flight-list"
             style={{ paddingTop: `${listTop ? listTop : 57}px` }}
@@ -309,7 +309,7 @@ export default class List extends PureComponent {
                         </Text>
                       </View>
                       <View className="air-info">
-                        <Image class="logo" src={airIcon} />
+                        <Image className="logo" src={airIcon} />
                         <Text className="company-name">{airCompanyName}</Text>
                       </View>
                     </View>
@@ -323,7 +323,7 @@ export default class List extends PureComponent {
             {Array(7)
               .fill(0)
               .map((item, index) => {
-                return <Skeleton key={index} row={3} action rowHeight={34} />;
+                return tools.isH5 ? <ListSkeleton key={index} /> : <ListSkeleton key={index} />;
               })}
           </View>
         )}
@@ -339,5 +339,20 @@ export default class List extends PureComponent {
         </View>
       </View>
     );
+  }
+}
+
+class ListSkeleton extends PureComponent {
+  render() {
+    return (
+      <View className="skeleton">
+        <View className="skeleton-content">
+          {
+            Array(3).fill(0).map((item, index) => <View key={index} className="skeleton-row" />)
+          }
+        </View>
+        <View className="skeleton-action"></View>
+      </View>
+    )
   }
 }

@@ -108,18 +108,10 @@ const tools = {
       console.error(err)
     }
   },
-  isAliPay: () => {
-    return Taro.ENV_TYPE.ALIPAY === Taro.getEnv() 
-  },
-  isBaiDu: () => {
-    return Taro.ENV_TYPE.SWAN = Taro.getEnv()
-  },
-  isWeChat: () => {
-    return Taro.ENV_TYPE.WEAPP = Taro.getEnv()
-  },
-  isH5: () => {
-    return Taro.ENV_TYPE.WEB = Taro.getEnv()
-  },
+  isAliPay: Taro.ENV_TYPE.ALIPAY === Taro.getEnv(),
+  isBaiDu: Taro.ENV_TYPE.SWAN === Taro.getEnv(),
+  isWeChat: Taro.ENV_TYPE.WEAPP === Taro.getEnv(),
+  isH5: Taro.ENV_TYPE.WEB === Taro.getEnv(),
   /**
    * 
    * @{param}	 fn 如果判断登录了就执行fn

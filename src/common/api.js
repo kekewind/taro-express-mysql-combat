@@ -1,7 +1,7 @@
 import tools from '@/common/tools'
 // 首页
 // const API_PRE = "http://localhost:3000"
-const API_PRE = "http://101.132.140.113"
+const API_PRE = tools.isH5 ? "" : "http://101.132.140.113"
 // 营销广告
 export const adsReq = (data) => tools.request({
   url: `${API_PRE}/ads/advertising`,
