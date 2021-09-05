@@ -17,7 +17,8 @@ module.exports = {
       // port: 10086,
       proxy: [
         {
-          context: ['/ads', '/city', '/list', '/'],
+          // context: ['/ads', '/city', '/list', '/'],
+          context: ['/'],
           target: HOST,
           changeOrigin: true,
         }

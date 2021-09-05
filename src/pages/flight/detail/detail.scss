@@ -151,4 +151,15 @@
       margin-right: 15px;
     }
   }
+  .share-btn {
+    background: -webkit-linear-gradient(left, #00aaff, #0080FF);
+    box-shadow: 0 10px 20px -8px rgba(42, 132, 255, 0.4);
+    height: 88px;
+    line-height: 88px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: 600;
+    border-radius: 88px;
+    margin-top: 60px;
+  }
 }

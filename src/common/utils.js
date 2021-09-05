@@ -49,4 +49,17 @@ export const debounce = (fn, delay) => {
     }, delay)
   }
 }
+/**
+ * 将对象解析成url参数
+ * @{param}	 
+ */
+export const objectToString = (obj) => {
+  let searchKeys = []
+  if (Object.prototype.toString.call(obj) === "[object Object]" && Object.keys(obj).length) {
+    for(let key in obj) {
+      searchKeys.push(`${key}=${obj[key]}`)
+    }
+  }
+  return searchKeys.join('&');
+}
 

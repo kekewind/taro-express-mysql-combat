@@ -40,6 +40,7 @@ export default class Home extends PureComponent {
     super(props);
     this.state = {
       orderList: [],
+      isRefresh: false, // 下拉刷新是否被触发
     };
   }
   componentDidMount() {
@@ -72,6 +73,9 @@ export default class Home extends PureComponent {
       })
       .finally(() => {
         tools.hideLoading();
+        this.setState({
+          isRefresh: false,
+        })
       });
   }
   toLogin = () => {
@@ -94,10 +98,16 @@ export default class Home extends PureComponent {
       tools.showToast("操作失败~")
     }
   }
+  onPullDownRefresh = () => {
+    this.setState({
+      isRefresh: true,
+    })
+    this.getOrderList();
+  }
   renderListItem = () => {
-    const { orderList } = this.state;
+    const { orderList, isRefresh } = this.state;
     return orderList?.length ? (
-      <ScrollView scrollY style={{height: '100%'}} className="order-list-box">
+      <ScrollView scrollY style={{height: '100%'}} className="order-list-box" refresherEnabled refresherTriggered={isRefresh} onRefresherRefresh={this.onPullDownRefresh}>
         {orderList.map((item) => {
           const { dptCityName, arrCityName, dptTime, dptTimeStr, price } = item;
           return (

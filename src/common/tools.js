@@ -1,5 +1,6 @@
 import Taro from '@tarojs/taro';
 import { USER_VALID_TIME } from '@/common/constant';
+import { objectToString } from '@/common/utils';
 
 const tools = {
   request: (opts) => {
@@ -67,13 +68,7 @@ const tools = {
     return Taro.hideLoading()
   },
   navigateTo: ({url, data}) => {
-    let searchKeys = []
-    if (Object.prototype.toString.call(data) === "[object Object]" && Object.keys(data).length) {
-      for(let key in data) {
-        searchKeys.push(`${key}=${data[key]}`)
-      }
-    }
-    const searchStr = searchKeys.join('&');
+    const searchStr = objectToString(data)
     console.log('searchStr', searchStr)
     return Taro.navigateTo({
       url: `${url}?${searchStr}`

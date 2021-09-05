@@ -13,11 +13,16 @@ import dayjs from "dayjs";
 import loginDecorator from "@/components/LoginDecorator";
 import tools from '@/common/tools'
 import { orderReq } from '@/common/api'
-// import user from '@/common/user';
+import { ERR_MES } from "@/common/constant";
+import withShare from '@/common/decorator/withShare'
 
 import "./detail.scss";
-import { ERR_MES } from "../../../common/constant";
 
+@withShare({
+  title: '我的行程分你一半，快乐同样分你一半～',
+  path: `/pages/flight/detail/detail`,
+  imageUrl: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20180914%2Ff4b0c16e207e4fd0b686bf378a62989c.jpg&refer=http%3A%2F%2F5b0988e595225.cdn.sohucs.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1633356232&t=99c2f5e1ceb1b611976b1e28608aeee7'
+})
 @loginDecorator
 @connect(({ base, user }) => ({
   base,
@@ -32,6 +37,7 @@ export default class Detail extends PureComponent {
     };
   }
   componentDidMount() {
+    console.log('---didmount---', getCurrentInstance())
     const { params } = getCurrentInstance().router;
     this.setState({
       selectedFlightData: {
@@ -39,28 +45,7 @@ export default class Detail extends PureComponent {
       },
     });
     console.log("--params", params);
-
-    // Taro.login()
-    //   .then((res) => {
-    //     console.log(res)
-    //     const { code } = res
-    //     loginReq({
-    //       js_code: code,
-    //       appid: user.appId,
-    //       secret: user.appSecret,
-    //       grant_type: 'authorization_code'
-    //     })
-    //   })
   }
-  // getPhone = (e) => {
-  //   console.log('---e', e)
-  // }
-  // onSwitchChange = (e) => {
-  //   console.log(e)
-  //   this.setState({
-  //     isChecked: e.detail.value
-  //   })
-  // }
   onOrder = () => {
     const {
       userPhone,
@@ -145,7 +130,7 @@ export default class Detail extends PureComponent {
         <View className="passenger-box module-box">
           <Text className="title">乘机人</Text>
           {
-            isLogin ? <View className="name">{nickName}</View> : <Button className="add-btn name" onClick={tools.goLoginPage}>新增</Button>
+            isLogin ? <View className="name">{nickName}</View> : <Button className="add-btn name" onClick={tools.doLogin}>新增</Button>
           }
         </View>
         <View className="passenger-box module-box">
@@ -179,6 +164,9 @@ export default class Detail extends PureComponent {
           </View>
           <View className="order-btn" onClick={this.onOrder}>订</View>
         </View>
+        {
+          tools.isWeChat && <Button className="share-btn" openType="share">快将行程分享给好友吧</Button>
+        }
         {/*  机票底部  */}
         <View className="flight-info"></View>
       </View>

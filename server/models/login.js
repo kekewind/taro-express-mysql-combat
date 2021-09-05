@@ -8,6 +8,7 @@ router.post("/login", async (req, res) => {
   try {
     console.log("--req--", req.body);
     const { userPhone, password, nickName } = req.body;
+
     const createTableSql = `
     create table if not exists user (
       id int auto_increment,
@@ -18,10 +19,9 @@ router.post("/login", async (req, res) => {
     ) engine=innodb;
   `;
     await sqlQuery(createTableSql);
-    // 查询是否有手机号
+    // 查询是否有对应手机号用户
     const sqlStr = `select userPhone from user where userPhone=${userPhone}`;
     const result = await sqlQuery(sqlStr);
-    console.log("res--->", result);
     if (result.length) {
       // 如果手机号对，则更新其名称
       const userInfo = `select nickName,password from user where userPhone=${userPhone}`;
@@ -32,6 +32,11 @@ router.post("/login", async (req, res) => {
           const updateSql = `update user set nickName='${nickName}' where userPhone=${userPhone}`
           await sqlQuery(updateSql)
         }
+        // if (clientType === "h5") {
+        //   // 用户名存入session
+        //   req.session.nickName = userInfo.nickName
+        // }
+        
         res.send({
           code: 1,
           mes: "登录成功",
@@ -73,4 +78,9 @@ router.get("/exitLogin", (req, res) => {
   });
   res.send("成功退出登录");
 });
+
+// const H5Login = ({req, userInfo}) => {
+//   req.session.nickName = userInfo.nickName
+// }
+
 module.exports = router;

@@ -6,10 +6,9 @@ import { debounce } from '@/common/utils';
 import { loginReq } from '@/common/api';
 import { ERR_MES } from '@/common/constant';
 import { connect } from 'react-redux';
-// import user from '@/common/user';
+import tools from '@/common/tools';
 
 import './login.scss';
-import tools from "../../common/tools";
 
 @connect(({user}) => ({
   ...user
@@ -69,7 +68,8 @@ export default class Login extends PureComponent {
     loginReq({
       userPhone,
       password,
-      nickName
+      nickName,
+      // clientType: Taro.getEnv(),
     })
       .then(res => {
         const { code, result } = res

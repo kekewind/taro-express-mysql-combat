@@ -49,6 +49,7 @@ export default class Flight extends PureComponent {
   }
   componentDidMount() {
     this.getAds();
+    this.getLocationInfo()
   }
   getAds = () => {
     adsReq().then((res) => {
@@ -58,6 +59,43 @@ export default class Flight extends PureComponent {
       });
     });
   };
+  getLocationInfo = () => {
+    Taro.getLocation({
+      type: 'gcj02'
+    })
+      .then(res => {
+        const {
+          latitude,
+          longitude,
+        } = res
+        this.getCity({latitude, longitude})
+      })
+      .catch(() => {
+        tools.showToast('位置获取失败~')
+      })
+  }
+  getCity = ({latitude, longitude}) => {
+    Taro.request({
+      url: `https://apis.map.qq.com/ws/geocoder/v1/?key=JKLBZ-WN3K4-HFSU6-DB5UU-2FGCS-CLB4J&location=${latitude},${longitude}`
+    })
+      .then(res => {
+        console.log(res)
+        const {
+          data
+        } = res
+        const cityInfo = data?.result?.ad_info || {}
+        this.props.dispatch({
+          type: 'flightIndex/updateState',
+          payload: {
+            dptCityId: cityInfo.city_code || 2,
+            dptCityName: cityInfo.city || "上海",
+          }
+        })
+      })
+      .catch(() => {
+        tools.showToast('位置获取失败~')
+      })
+  }
   switchFlightInnerTab = (value) => {
     if (value === this.state.flightTab) return;
     this.setState({
@@ -86,12 +124,16 @@ export default class Flight extends PureComponent {
       dptCityId,
       arrCityId,
       arrCityName,
+      dptAirportName,
+      arrAirportName,
     } = this.props.flightIndex;
     const exchangeObj = {
       dptCityName: arrCityName,
       dptCityId: arrCityId,
       arrCityName: dptCityName,
       arrCityId: dptCityId,
+      dptAirportName: arrAirportName,
+      arrAirportName: dptAirportName,
     };
     this.setState({
       isExchange: true,

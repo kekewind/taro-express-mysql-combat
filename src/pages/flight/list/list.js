@@ -13,7 +13,7 @@ import dayjs from "dayjs";
 import { weekDay } from "@/common/utils";
 import { flightListReq } from "@/common/api";
 import tools from "@/common/tools";
-// import Skeleton from "taro-skeleton";
+import Skeleton from "taro-skeleton";
 import { connect } from "react-redux";
 // import VirtualList from "@/components/VirtualList";
 
@@ -323,7 +323,7 @@ export default class List extends PureComponent {
             {Array(7)
               .fill(0)
               .map((item, index) => {
-                return tools.isH5 ? <ListSkeleton key={index} /> : <ListSkeleton key={index} />;
+                return <Skeleton key={index} row={3} action rowHeight={34} />;
               })}
           </View>
         )}
@@ -342,17 +342,17 @@ export default class List extends PureComponent {
   }
 }
 
-class ListSkeleton extends PureComponent {
-  render() {
-    return (
-      <View className="skeleton">
-        <View className="skeleton-content">
-          {
-            Array(3).fill(0).map((item, index) => <View key={index} className="skeleton-row" />)
-          }
-        </View>
-        <View className="skeleton-action"></View>
-      </View>
-    )
-  }
-}
+// class ListSkeleton extends PureComponent {
+//   render() {
+//     return (
+//       <View className="skeleton">
+//         <View className="skeleton-content">
+//           {
+//             Array(3).fill(0).map((item, index) => <View key={index} className="skeleton-row" />)
+//           }
+//         </View>
+//         <View className="skeleton-action"></View>
+//       </View>
+//     )
+//   }
+// }
