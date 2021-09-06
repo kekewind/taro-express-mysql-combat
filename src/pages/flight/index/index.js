@@ -15,7 +15,7 @@ import { connect } from "react-redux";
 import Taro from "@tarojs/taro";
 import { FLIGHT_TABS_MAP } from "@/common/constant";
 import dayjs from "dayjs";
-import tools from "../../../common/tools";
+import tools from "@/common/tools";
 
 import "./index.scss";
 

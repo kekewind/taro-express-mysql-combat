@@ -83,7 +83,7 @@
     }
   },
   "lint-staged": {
-    "*.{js,ts,tsx,jsx}": [
+    "src/**/*.{js,ts,tsx,jsx}": [
       "eslint --quiet --cache --fix",
       "git add"
     ]
