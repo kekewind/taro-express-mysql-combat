@@ -20,17 +20,23 @@ export default class Index extends PureComponent {
     super(props);
     this.state = {
       tab: DEFAULT_TAB_LIST[0]["tab"],
+      tabIndex: 0,
     };
   }
   switchTab(tab) {
     if (tab === this.state.tab) return;
     this.setState({
       tab,
+      tabIndex: DEFAULT_TAB_LIST.findIndex(item => item.tab === tab),
     });
   }
 
   render() {
-    const { tab } = this.state;
+    const { tab, tabIndex } = this.state;
+    const innerStyle = {
+      width: `${100 / DEFAULT_TAB_LIST.length}%`,
+      transform: `translateX(${tabIndex * 100}%)`
+    }
     return (
       <View className="index-container">
         <View className="top">
@@ -48,7 +54,7 @@ export default class Index extends PureComponent {
             ))}
             <View
               className="scrollbar"
-              style={`width:${100 / DEFAULT_TAB_LIST.length}%`}
+              style={innerStyle}
             ></View>
           </View>
         </View>
