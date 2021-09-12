@@ -9,30 +9,28 @@ import FlightIndex from '../flight/index/index'
 
 // 主tab list
 const DEFAULT_TAB_LIST = [
-  { title: "机票", tab: "flight" },
-  { title: "火车票", tab: "train" },
-  { title: "酒店", tab: "hotel" },
-  { title: `汽车票`, tab: "bus" },
+  { title: "机票", tab: "flight", index: 0 },
+  { title: "火车票", tab: "train", index: 1 },
+  { title: "酒店", tab: "hotel", index: 2 },
+  { title: `汽车票`, tab: "bus", index: 3 },
 ];
 
 export default class Index extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      tab: DEFAULT_TAB_LIST[0]["tab"],
       tabIndex: 0,
     };
   }
-  switchTab(tab) {
-    if (tab === this.state.tab) return;
+  switchTab(index) {
+    if (index === this.state.tabIndex) return;
     this.setState({
-      tab,
-      tabIndex: DEFAULT_TAB_LIST.findIndex(item => item.tab === tab),
+      tabIndex: index,
     });
   }
 
   render() {
-    const { tab, tabIndex } = this.state;
+    const { tabIndex } = this.state;
     const innerStyle = {
       width: `${100 / DEFAULT_TAB_LIST.length}%`,
       transform: `translateX(${tabIndex * 100}%)`
@@ -45,9 +43,9 @@ export default class Index extends PureComponent {
               <View
                 key={item.tab}
                 className={`index_tab_item ${item.tab} ${
-                  tab === item.tab ? "current" : ""
+                  tabIndex === item.index ? "current" : ""
                 }`}
-                onClick={() => this.switchTab(item.tab)}
+                onClick={() => this.switchTab(item.index)}
               >
                 {item.title}
               </View>
@@ -59,7 +57,7 @@ export default class Index extends PureComponent {
           </View>
         </View>
         {
-          tab === "flight" ? (
+          DEFAULT_TAB_LIST[tabIndex]['tab'] === "flight" ? (
             <FlightIndex show />
           ) : <NoExploit />
         }
