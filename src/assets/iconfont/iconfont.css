@@ -1,6 +1,8 @@
 @font-face {
-  font-family: "iconfont"; /* Project id  */
-  src: url('iconfont.ttf?t=1628419536495') format('truetype');
+  font-family: 'iconfont';  /* Project id 2834189 */
+  src: url('//at.alicdn.com/t/font_2834189_n0htqwl9ts.woff2?t=1632573002885') format('woff2'),
+       url('//at.alicdn.com/t/font_2834189_n0htqwl9ts.woff?t=1632573002885') format('woff'),
+       url('//at.alicdn.com/t/font_2834189_n0htqwl9ts.ttf?t=1632573002885') format('truetype');
 }
 
 .iconfont {
@@ -13,5 +15,11 @@
 
 .icon-zhihuan:before {
   content: "\ec8d";
+}
+.icon-rentou:before {
+  content: "\eb63";
+}
+.icon-tiaoshi:before {
+  content: "\eb61";
 }
 
