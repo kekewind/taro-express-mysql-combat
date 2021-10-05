@@ -4,7 +4,7 @@
   "description": "taro3实现完整出行OTA项目，Express写服务端，Mysql数据库，兼容四大端小程序以及H5",
   "appid": "wxf79e560d93972614",
   "setting": {
-    "urlCheck": true,
+    "urlCheck": false,
     "es6": false,
     "postcss": false,
     "minified": false

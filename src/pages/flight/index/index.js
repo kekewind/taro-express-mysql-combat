@@ -193,7 +193,7 @@ export default class Flight extends PureComponent {
                 </View>
                 <Text
                   onClick={this.exchangeCity}
-                  className={`icon-zhihuan icon iconfont ${
+                  className={`icon-zhihuan iconfont ${
                     isExchange ? "active" : ""
                   }`}
                 ></Text>

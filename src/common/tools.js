@@ -8,13 +8,14 @@ const tools = {
       url = "",
       params = {},
       method = "GET",
+      ...rest
     } = opts
     return new Promise((resolve, reject) => {
       Taro.request({
         url,
         data: params,
         method,
-        // mode: 'no-cors'
+        ...rest,
       })
         .then((res) => {
           const { data } = res
@@ -69,7 +70,6 @@ const tools = {
   },
   navigateTo: ({url, data}) => {
     const searchStr = objectToString(data)
-    console.log('searchStr', searchStr)
     return Taro.navigateTo({
       url: `${url}?${searchStr}`
     })
